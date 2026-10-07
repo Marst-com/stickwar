@@ -2,8 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>DuoMarst Stickman Battle</title>
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>StickWar — DuoMarst</title>
 
 <style>
 *{
@@ -12,168 +14,202 @@
     padding:0;
 }
 
-body{
-    font-family:Arial,sans-serif;
-    background:#080b16;
-    color:#fff;
-    min-height:100vh;
+:root{
+    --bg:#070a13;
+    --panel:#11172a;
+    --panel2:#171e35;
+    --line:#293354;
+    --text:#f7f8ff;
+    --muted:#8993b5;
+    --purple:#786bff;
+    --purple2:#9b91ff;
+    --green:#42df8b;
+    --red:#ff5577;
+    --yellow:#ffc857;
 }
 
-button,input{
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        Pretendard,
+        Arial,
+        sans-serif;
+}
+
+button,
+input{
     font:inherit;
 }
 
 button{
-    cursor:pointer;
     border:0;
+    cursor:pointer;
 }
 
 .hidden{
     display:none!important;
 }
 
-.screen{
-    min-height:100vh;
-}
-
-/* =========================
+/* =========================================================
    LOGIN
-========================= */
+========================================================= */
 
-#loginScreen{
+#authScreen{
+    width:100%;
+    height:100%;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:20px;
+
     background:
-        radial-gradient(circle at 50% 20%,#293b8b 0,#111936 35%,#080b16 75%);
+        radial-gradient(
+            circle at 50% 0%,
+            #302b78 0,
+            #141a39 30%,
+            #070a13 75%
+        );
 }
 
-.loginBox{
-    width:min(430px,100%);
+.authBox{
+    width:min(440px,calc(100% - 30px));
     padding:32px;
+
+    border:1px solid rgba(255,255,255,.09);
     border-radius:28px;
-    background:rgba(20,25,48,.94);
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 25px 80px rgba(0,0,0,.5);
+
+    background:rgba(17,23,42,.94);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.55);
 }
 
 .logo{
-    font-size:34px;
-    font-weight:900;
     text-align:center;
-    margin-bottom:8px;
+    font-size:38px;
+    font-weight:1000;
+    letter-spacing:-2px;
 }
 
 .logo span{
-    color:#8b7cff;
+    color:var(--purple2);
 }
 
-.subtitle{
+.authSub{
     text-align:center;
-    color:#9fa8c7;
-    margin-bottom:30px;
+    margin-top:7px;
+    color:var(--muted);
+    margin-bottom:28px;
 }
 
 .input{
     width:100%;
-    padding:14px 16px;
-    margin-bottom:12px;
-    border-radius:14px;
-    border:1px solid #30385e;
-    background:#0c1022;
-    color:white;
+    padding:14px 15px;
+    border-radius:13px;
+
+    background:#090d1c;
+    border:1px solid #2c3658;
+
+    color:#fff;
     outline:none;
+
+    margin-bottom:10px;
 }
 
 .input:focus{
-    border-color:#8175ff;
+    border-color:var(--purple);
 }
 
 .btn{
     width:100%;
-    padding:14px;
-    border-radius:14px;
-    margin-top:8px;
+    min-height:46px;
+    border-radius:13px;
     font-weight:800;
-    transition:.15s;
+    margin-top:8px;
 }
 
-.btn:hover{
-    transform:translateY(-1px);
-}
-
-.primary{
-    background:#7567ff;
+.btnPrimary{
+    background:var(--purple);
     color:white;
 }
 
-.google{
+.btnSecondary{
+    background:#252e4d;
+    color:white;
+}
+
+.btnGoogle{
     background:white;
-    color:#222;
+    color:#202020;
 }
 
-.secondary{
-    background:#202743;
-    color:#fff;
-}
-
-.danger{
-    background:#d83b58;
-    color:#fff;
+.btnDanger{
+    background:#a92e49;
+    color:white;
 }
 
 .divider{
     display:flex;
     align-items:center;
     gap:10px;
-    color:#6f7899;
-    margin:20px 0;
+    color:#687292;
+    margin:18px 0;
 }
 
-.divider::before,
-.divider::after{
+.divider:before,
+.divider:after{
     content:"";
     flex:1;
     height:1px;
-    background:#303653;
+    background:#2b3453;
 }
 
-.smallText{
-    color:#7e87a7;
+.authError{
+    color:#ff6d89;
     font-size:12px;
-    text-align:center;
-    margin-top:15px;
+    margin-top:10px;
+    min-height:18px;
 }
 
-/* =========================
+/* =========================================================
    APP
-========================= */
+========================================================= */
 
 #app{
-    min-height:100vh;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
 }
 
 .topbar{
-    height:68px;
+    height:66px;
+    flex:none;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 20px;
-    background:#11162b;
-    border-bottom:1px solid #252c49;
+
+    padding:0 18px;
+
+    background:#0e1425;
+    border-bottom:1px solid var(--line);
 }
 
-.topLogo{
-    font-size:22px;
-    font-weight:900;
+.brand{
+    font-size:21px;
+    font-weight:1000;
 }
 
-.topLogo span{
-    color:#8376ff;
+.brand span{
+    color:var(--purple2);
 }
 
-.userInfo{
+.account{
     display:flex;
     align-items:center;
     gap:10px;
@@ -183,738 +219,1200 @@ button{
     width:38px;
     height:38px;
     border-radius:50%;
-    background:#7567ff;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
+    background:var(--purple);
+    color:#fff;
     font-weight:900;
 }
 
-.main{
-    width:min(1100px,100%);
-    margin:auto;
-    padding:22px;
+.accountName{
+    font-weight:800;
+    font-size:14px;
 }
 
-.tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:20px;
-    overflow:auto;
+.accountUid{
+    color:#66708e;
+    font-size:9px;
 }
 
-.tab{
-    flex:0 0 auto;
-    padding:11px 18px;
-    border-radius:12px;
-    background:#171d35;
-    color:#9ea7c7;
-}
-
-.tab.active{
-    background:#7567ff;
+.logout{
+    margin-left:5px;
+    padding:8px 11px;
+    border-radius:9px;
+    background:#202943;
     color:#fff;
 }
 
-.panel{
-    background:#11162b;
-    border:1px solid #252c49;
-    border-radius:22px;
-    padding:20px;
-    margin-bottom:18px;
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav{
+    height:62px;
+    flex:none;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 14px;
+
+    background:#0b1020;
+    border-bottom:1px solid #202945;
+
+    overflow-x:auto;
 }
 
-.panelTitle{
+.nav button{
+    flex:none;
+    padding:10px 16px;
+
+    border-radius:11px;
+
+    background:#161d34;
+    color:#8e98b9;
+}
+
+.nav button.active{
+    background:var(--purple);
+    color:white;
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+    flex:1;
+    overflow:auto;
+    padding:18px;
+}
+
+.page{
+    width:min(1100px,100%);
+    margin:auto;
+}
+
+.panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:16px;
+}
+
+.title{
     font-size:20px;
     font-weight:900;
-    margin-bottom:15px;
+    margin-bottom:14px;
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
 }
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-    gap:14px;
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
 }
 
 .card{
-    padding:18px;
-    border-radius:18px;
-    background:#171d35;
-    border:1px solid #2b3354;
+    background:var(--panel2);
+    border:1px solid #2a3454;
+    border-radius:17px;
+    padding:17px;
 }
 
 .card h3{
-    margin-bottom:7px;
+    margin-bottom:6px;
 }
 
 .card p{
-    color:#929cbd;
+    color:var(--muted);
     font-size:13px;
 }
 
-/* =========================
-   FRIENDS
-========================= */
+.stat{
+    font-size:25px;
+    font-weight:1000;
+    margin-top:8px;
+}
 
-.friendRow{
+/* =========================================================
+   FRIENDS
+========================================================= */
+
+.friendSearch{
+    display:flex;
+    gap:8px;
+}
+
+.friendSearch .input{
+    margin:0;
+}
+
+.friendSearch button{
+    flex:none;
+    padding:0 17px;
+    border-radius:12px;
+    background:var(--purple);
+    color:#fff;
+    font-weight:800;
+}
+
+.searchResult{
+    margin-top:10px;
+    background:var(--panel2);
+    border-radius:14px;
+    padding:13px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:13px;
-    margin-bottom:8px;
-    border-radius:14px;
-    background:#171d35;
 }
 
-.friendLeft{
+.userRow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px;
+
+    background:var(--panel2);
+    border:1px solid #293250;
+
+    border-radius:14px;
+    margin-bottom:8px;
+}
+
+.userLeft{
     display:flex;
     align-items:center;
     gap:10px;
 }
 
-.status{
-    width:9px;
-    height:9px;
+.miniAvatar{
+    width:35px;
+    height:35px;
     border-radius:50%;
-    background:#555;
-}
+    background:#4b5480;
 
-.status.online{
-    background:#35d878;
-}
-
-.friendActions{
     display:flex;
-    gap:6px;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:900;
 }
 
-.miniBtn{
-    padding:7px 10px;
+.mini{
+    padding:8px 11px;
     border-radius:9px;
-    background:#272f50;
-    color:#fff;
+    background:#27304e;
+    color:white;
 }
 
-/* =========================
-   ROOM
-========================= */
+.onlineDot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    display:inline-block;
+    background:#555;
+    margin-right:5px;
+}
 
-.roomGrid{
+.onlineDot.on{
+    background:var(--green);
+}
+
+/* =========================================================
+   WEAPONS
+========================================================= */
+
+.weaponGrid{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(160px,1fr));
+    gap:12px;
+}
+
+.weapon{
+    position:relative;
+    padding:18px;
+
+    background:var(--panel2);
+    border:1px solid #293452;
+    border-radius:17px;
+
+    cursor:pointer;
+}
+
+.weapon.selected{
+    border-color:var(--purple2);
+    box-shadow:
+        0 0 0 1px var(--purple),
+        inset 0 0 25px rgba(120,107,255,.08);
+}
+
+.weaponIcon{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.weaponName{
+    font-weight:900;
+}
+
+.weaponStats{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* =========================================================
+   ROOMS
+========================================================= */
+
+.roomOptions{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:16px;
+    gap:15px;
 }
 
 @media(max-width:700px){
-    .roomGrid{
+    .roomOptions{
         grid-template-columns:1fr;
     }
 }
 
 .optionGrid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-    gap:10px;
+    grid-template-columns:
+        repeat(auto-fit,minmax(110px,1fr));
+    gap:8px;
 }
 
 .option{
-    padding:15px;
-    border-radius:14px;
-    background:#171d35;
-    border:1px solid #2b3354;
-    color:white;
+    padding:13px;
+    border-radius:12px;
+
+    background:#171e36;
+    color:#b0b8d2;
+
+    border:1px solid #2b3454;
+
     text-align:left;
 }
 
 .option.selected{
-    border-color:#8a7dff;
-    background:#282450;
+    background:#29234f;
+    color:white;
+    border-color:var(--purple2);
 }
 
-.playerSlot{
+.roomCode{
+    font-size:32px;
+    font-weight:1000;
+    letter-spacing:6px;
+    text-align:center;
+    padding:16px;
+    background:#080c19;
+    border-radius:15px;
+    margin:12px 0;
+}
+
+.roomPlayers{
+    margin-top:10px;
+}
+
+.player{
+    padding:12px;
+    border-radius:12px;
+    background:#171e35;
+    margin-bottom:7px;
+
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    padding:13px;
-    margin-bottom:8px;
-    border-radius:13px;
-    background:#171d35;
+    align-items:center;
 }
 
 .ready{
-    color:#4be58a;
-    font-weight:800;
+    color:var(--green);
+    font-weight:900;
 }
 
 .notReady{
-    color:#ffba58;
+    color:var(--yellow);
 }
 
-/* =========================
-   GAME
-========================= */
+/* =========================================================
+   TOAST
+========================================================= */
 
-#gameScreen{
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+
+    transform:translateX(-50%);
+
+    background:#171e35;
+    border:1px solid #384467;
+
+    padding:12px 17px;
+
+    border-radius:12px;
+
+    z-index:10000;
+
+    box-shadow:0 15px 40px #0009;
+}
+
+/* =========================================================
+   GAME
+========================================================= */
+
+#game{
     position:fixed;
     inset:0;
-    background:#05070e;
-    z-index:100;
+    z-index:5000;
+    background:#06080f;
 }
 
-#gameCanvas{
+#canvas{
+    position:absolute;
+    inset:0;
+
     width:100%;
     height:100%;
-    display:block;
+
     touch-action:none;
 }
 
-.gameHUD{
+.gameTop{
     position:absolute;
-    top:12px;
     left:12px;
     right:12px;
+    top:12px;
+
     display:flex;
     justify-content:space-between;
+
     pointer-events:none;
 }
 
-.hudBox{
-    background:rgba(8,11,22,.75);
-    padding:10px 14px;
-    border-radius:13px;
+.gameInfo{
+    background:rgba(7,10,18,.78);
+    border:1px solid rgba(255,255,255,.1);
     backdrop-filter:blur(10px);
+
+    padding:9px 13px;
+    border-radius:12px;
 }
 
-.controls{
+.hpBar{
+    width:150px;
+    height:10px;
+    background:#252a3b;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:5px;
+}
+
+.hpFill{
+    width:100%;
+    height:100%;
+    background:var(--green);
+}
+
+.mobileControls{
     position:absolute;
     left:0;
     right:0;
     bottom:15px;
+
     display:flex;
     justify-content:space-between;
+
     padding:0 18px;
+
     pointer-events:none;
 }
 
-.controlGroup{
+.controlSide{
     display:flex;
-    gap:10px;
+    gap:9px;
     pointer-events:auto;
 }
 
-.controlBtn{
-    width:58px;
-    height:58px;
+.control{
+    width:60px;
+    height:60px;
+
     border-radius:50%;
-    background:rgba(255,255,255,.14);
+
+    background:rgba(255,255,255,.13);
     color:white;
-    border:1px solid rgba(255,255,255,.2);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    font-size:22px;
     font-weight:900;
+
     user-select:none;
+    -webkit-user-select:none;
 }
 
-.attack{
-    background:rgba(117,103,255,.7);
+.control.attack{
+    background:rgba(120,107,255,.72);
 }
 
-#gameOver{
+.gameMenu{
     position:absolute;
     inset:0;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     background:rgba(0,0,0,.7);
 }
 
-.gameOverBox{
+.gameMenuBox{
+    width:min(350px,calc(100% - 30px));
+    padding:28px;
+
+    background:#11172a;
+    border:1px solid #313b5e;
+
+    border-radius:22px;
+
     text-align:center;
-    background:#11162b;
-    padding:35px;
-    border-radius:25px;
-    min-width:280px;
 }
 
-.gameOverBox h1{
-    margin-bottom:15px;
-}
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
-    transform:translateX(-50%);
-    background:#181e35;
-    border:1px solid #30395d;
-    padding:12px 18px;
-    border-radius:13px;
-    z-index:999;
-    box-shadow:0 10px 30px #0008;
-}
-
-.badge{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:7px;
-    background:#252d4e;
-    font-size:11px;
-}
-
-.weaponIcon{
-    font-size:30px;
+.gameMenuBox h1{
     margin-bottom:10px;
+}
+
+.gameMenuBox p{
+    color:var(--muted);
+    margin-bottom:18px;
+}
+
+/* =========================================================
+   SMALL
+========================================================= */
+
+@media(max-width:600px){
+
+    .topbar{
+        padding:0 10px;
+    }
+
+    .brand{
+        font-size:17px;
+    }
+
+    .accountName,
+    .accountUid{
+        display:none;
+    }
+
+    .content{
+        padding:10px;
+    }
+
+    .panel{
+        padding:14px;
+    }
+
+    .friendSearch{
+        flex-direction:column;
+    }
+
+    .friendSearch button{
+        height:44px;
+    }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- =======================================================
+     AUTH
+======================================================= -->
 
-<section id="loginScreen" class="screen">
+<div id="authScreen">
 
-<div class="loginBox">
+    <div class="authBox">
 
-<div class="logo">
-Duo<span>Marst</span>
+        <div class="logo">
+            Stick<span>War</span>
+        </div>
+
+        <div class="authSub">
+            DuoMarst Multiplayer Battle
+        </div>
+
+        <input
+            id="emailInput"
+            class="input"
+            type="email"
+            placeholder="이메일"
+        >
+
+        <input
+            id="passwordInput"
+            class="input"
+            type="password"
+            placeholder="비밀번호 (6자리 이상)"
+        >
+
+        <button
+            id="loginBtn"
+            class="btn btnPrimary"
+        >
+            이메일 로그인
+        </button>
+
+        <button
+            id="registerBtn"
+            class="btn btnSecondary"
+        >
+            이메일 회원가입
+        </button>
+
+        <div class="divider">
+            또는
+        </div>
+
+        <button
+            id="googleBtn"
+            class="btn btnGoogle"
+        >
+            🌐 Google로 로그인
+        </button>
+
+        <div
+            id="authError"
+            class="authError"
+        ></div>
+
+    </div>
+
 </div>
 
-<div class="subtitle">
-Stickman Battle
-</div>
 
-<div id="loginForm">
-
-<input
-    id="email"
-    class="input"
-    type="email"
-    placeholder="이메일"
->
-
-<input
-    id="password"
-    class="input"
-    type="password"
-    placeholder="비밀번호"
->
-
-<button id="emailLoginBtn" class="btn primary">
-이메일 로그인
-</button>
-
-<button id="signupBtn" class="btn secondary">
-이메일 회원가입
-</button>
-
-<div class="divider">
-또는
-</div>
-
-<button id="googleBtn" class="btn google">
-🔵 Google로 로그인
-</button>
-
-<div class="smallText">
-로그인하면 친구, 무기, 방 정보를 여러 기기에서 사용할 수 있어.
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
+<!-- =======================================================
      APP
-========================= -->
+======================================================= -->
 
-<section id="app" class="hidden">
+<div id="app" class="hidden">
 
-<header class="topbar">
+    <header class="topbar">
 
-<div class="topLogo">
-Duo<span>Marst</span> Battle
+        <div class="brand">
+            Stick<span>War</span>
+        </div>
+
+        <div class="account">
+
+            <div
+                id="avatar"
+                class="avatar"
+            >?</div>
+
+            <div>
+
+                <div
+                    id="accountName"
+                    class="accountName"
+                >-</div>
+
+                <div
+                    id="accountUid"
+                    class="accountUid"
+                >-</div>
+
+            </div>
+
+            <button
+                id="logoutBtn"
+                class="logout"
+            >
+                로그아웃
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <nav class="nav">
+
+        <button
+            class="navBtn active"
+            data-page="home"
+        >
+            🏠 홈
+        </button>
+
+        <button
+            class="navBtn"
+            data-page="friends"
+        >
+            👥 친구
+        </button>
+
+        <button
+            class="navBtn"
+            data-page="weapons"
+        >
+            ⚔️ 무기
+        </button>
+
+        <button
+            class="navBtn"
+            data-page="rooms"
+        >
+            🚪 방
+        </button>
+
+    </nav>
+
+
+    <main class="content">
+
+
+        <!-- HOME -->
+
+        <section
+            id="page-home"
+            class="page"
+        >
+
+            <div class="panel">
+
+                <div class="title">
+                    ⚔️ StickWar
+                </div>
+
+                <p class="subtitle">
+                    친구를 찾고 방 코드를 공유해서
+                    최대 4명이 실시간으로 싸워봐.
+                </p>
+
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>👥 친구</h3>
+
+                    <div
+                        id="friendStat"
+                        class="stat"
+                    >0</div>
+
+                    <p>
+                        친구 수
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>⚔️ 무기</h3>
+
+                    <div
+                        id="weaponStat"
+                        class="stat"
+                    >0</div>
+
+                    <p>
+                        보유 무기
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>🌐 네트워크</h3>
+
+                    <div
+                        id="networkStat"
+                        class="stat"
+                    >
+                        OFF
+                    </div>
+
+                    <p>
+                        Firebase / WebRTC
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FRIENDS -->
+
+        <section
+            id="page-friends"
+            class="page hidden"
+        >
+
+            <div class="panel">
+
+                <div class="title">
+                    🔎 닉네임으로 친구 찾기
+                </div>
+
+                <div class="friendSearch">
+
+                    <input
+                        id="nicknameSearch"
+                        class="input"
+                        placeholder="닉네임 입력"
+                    >
+
+                    <button
+                        id="searchUserBtn"
+                    >
+                        검색
+                    </button>
+
+                </div>
+
+                <div
+                    id="searchResult"
+                ></div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="title">
+                    📨 친구 요청
+                </div>
+
+                <div
+                    id="requestList"
+                >
+                    불러오는 중...
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="title">
+                    👥 친구 목록
+                </div>
+
+                <div
+                    id="friendList"
+                >
+                    불러오는 중...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WEAPONS -->
+
+        <section
+            id="page-weapons"
+            class="page hidden"
+        >
+
+            <div class="panel">
+
+                <div class="title">
+                    ⚔️ 내 무기
+                </div>
+
+                <p class="subtitle">
+                    방에서 사용할 무기를 선택해.
+                </p>
+
+                <br>
+
+                <div
+                    id="weaponList"
+                    class="weaponGrid"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROOMS -->
+
+        <section
+            id="page-rooms"
+            class="page hidden"
+        >
+
+            <div class="panel">
+
+                <div class="title">
+                    🚪 방 만들기
+                </div>
+
+                <div class="roomOptions">
+
+                    <div>
+
+                        <p class="subtitle">
+                            게임 모드
+                        </p>
+
+                        <br>
+
+                        <div class="optionGrid">
+
+                            <button
+                                class="option mode selected"
+                                data-mode="1v1"
+                            >
+                                1 vs 1
+                            </button>
+
+                            <button
+                                class="option mode"
+                                data-mode="2v2"
+                            >
+                                2 vs 2
+                            </button>
+
+                            <button
+                                class="option mode"
+                                data-mode="ffa3"
+                            >
+                                3인 난투
+                            </button>
+
+                            <button
+                                class="option mode"
+                                data-mode="ffa4"
+                            >
+                                4인 난투
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="subtitle">
+                            맵
+                        </p>
+
+                        <br>
+
+                        <div class="optionGrid">
+
+                            <button
+                                class="option map selected"
+                                data-map="plain"
+                            >
+                                🌾 평원
+                            </button>
+
+                            <button
+                                class="option map"
+                                data-map="city"
+                            >
+                                🏙️ 도시
+                            </button>
+
+                            <button
+                                class="option map"
+                                data-map="forest"
+                            >
+                                🌲 숲
+                            </button>
+
+                            <button
+                                class="option map"
+                                data-map="arena"
+                            >
+                                🏟️ 아레나
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="createRoomBtn"
+                    class="btn btnPrimary"
+                >
+                    방 만들기
+                </button>
+
+            </div>
+
+
+            <div
+                id="joinPanel"
+                class="panel"
+            >
+
+                <div class="title">
+                    🔑 방 코드로 참가
+                </div>
+
+                <input
+                    id="roomCodeInput"
+                    class="input"
+                    maxlength="6"
+                    placeholder="예: A7K92P"
+                    style="text-transform:uppercase"
+                >
+
+                <button
+                    id="joinRoomBtn"
+                    class="btn btnSecondary"
+                >
+                    방 참가
+                </button>
+
+            </div>
+
+
+            <div
+                id="roomPanel"
+                class="panel hidden"
+            >
+
+                <div class="title">
+                    🎮 현재 방
+                </div>
+
+                <div
+                    id="roomCodeDisplay"
+                    class="roomCode"
+                >
+                    ------
+                </div>
+
+                <p
+                    id="roomDescription"
+                    class="subtitle"
+                    style="text-align:center"
+                ></p>
+
+                <button
+                    id="copyRoomBtn"
+                    class="btn btnSecondary"
+                >
+                    📋 방 코드 복사
+                </button>
+
+                <div
+                    id="roomPlayers"
+                    class="roomPlayers"
+                ></div>
+
+                <button
+                    id="readyBtn"
+                    class="btn btnPrimary"
+                >
+                    준비
+                </button>
+
+                <button
+                    id="startBtn"
+                    class="btn btnSecondary hidden"
+                >
+                    ⚔️ 게임 시작
+                </button>
+
+                <button
+                    id="leaveRoomBtn"
+                    class="btn btnDanger"
+                >
+                    방 나가기
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
 </div>
 
-<div class="userInfo">
 
-<div id="avatar" class="avatar">
-?
-</div>
-
-<div>
-<div id="displayNameText">
--
-</div>
-<div id="uidText" style="font-size:10px;color:#687292">
--
-</div>
-</div>
-
-<button id="logoutBtn" class="miniBtn">
-로그아웃
-</button>
-
-</div>
-
-</header>
-
-
-<main class="main">
-
-<nav class="tabs">
-
-<button class="tab active" data-page="home">
-🏠 홈
-</button>
-
-<button class="tab" data-page="friends">
-👥 친구
-</button>
-
-<button class="tab" data-page="weapons">
-⚔️ 무기
-</button>
-
-<button class="tab" data-page="rooms">
-🚪 방
-</button>
-
-</nav>
-
-
-<!-- HOME -->
-
-<section id="page-home" class="page">
-
-<div class="panel">
-
-<div class="panelTitle">
-🎮 Stickman Battle
-</div>
-
-<p style="color:#969fbd;line-height:1.6">
-친구를 추가하고 방을 만든 다음,
-무기를 선택해서 졸라맨 전투를 시작해.
-</p>
-
-<br>
-
-<div class="cards">
-
-<div class="card">
-<h3>⚔️ 무기</h3>
-<p id="weaponCount">0개 보유</p>
-</div>
-
-<div class="card">
-<h3>👥 친구</h3>
-<p id="friendCount">0명</p>
-</div>
-
-<div class="card">
-<h3>🚪 방</h3>
-<p>친구들과 실시간 전투</p>
-</div>
-
-<div class="card">
-<h3>🌐 네트워크</h3>
-<p>Firebase + WebRTC</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- FRIENDS -->
-
-<section id="page-friends" class="page hidden">
-
-<div class="panel">
-
-<div class="panelTitle">
-👥 친구 추가
-</div>
-
-<input
-    id="friendUidInput"
-    class="input"
-    placeholder="친구의 UID"
->
-
-<button id="sendFriendBtn" class="btn primary">
-친구 요청 보내기
-</button>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelTitle">
-📨 받은 친구 요청
-</div>
-
-<div id="requestsList">
-불러오는 중...
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panelTitle">
-👥 친구 목록
-</div>
-
-<div id="friendsList">
-불러오는 중...
-</div>
-
-</div>
-
-</section>
-
-
-<!-- WEAPONS -->
-
-<section id="page-weapons" class="page hidden">
-
-<div class="panel">
-
-<div class="panelTitle">
-⚔️ 내 무기
-</div>
-
-<div id="weaponsList" class="cards">
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ROOMS -->
-
-<section id="page-rooms" class="page hidden">
-
-<div class="panel">
-
-<div class="panelTitle">
-🚪 방 만들기
-</div>
-
-<div class="roomGrid">
-
-<div>
-
-<p style="margin-bottom:8px">
-게임 모드
-</p>
-
-<div class="optionGrid">
-
-<button class="option modeOption selected" data-mode="1v1">
-1 vs 1
-</button>
-
-<button class="option modeOption" data-mode="2v2">
-2 vs 2
-</button>
-
-<button class="option modeOption" data-mode="ffa3">
-3인 난투
-</button>
-
-<button class="option modeOption" data-mode="ffa4">
-4인 난투
-</button>
-
-</div>
-
-</div>
-
-
-<div>
-
-<p style="margin-bottom:8px">
-맵
-</p>
-
-<div class="optionGrid">
-
-<button class="option mapOption selected" data-map="plain">
-평원
-</button>
-
-<button class="option mapOption" data-map="city">
-도시
-</button>
-
-<button class="option mapOption" data-map="forest">
-숲
-</button>
-
-<button class="option mapOption" data-map="arena">
-아레나
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<button
-    id="createRoomBtn"
-    class="btn primary"
-    style="margin-top:18px"
->
-방 만들기
-</button>
-
-</div>
-
-
-<div id="roomPanel" class="panel hidden">
-
-<div class="panelTitle">
-🎮 현재 방
-</div>
-
-<div id="roomInfo"></div>
-
-<hr style="border:0;border-top:1px solid #282f4d;margin:15px 0">
-
-<div class="panelTitle">
-플레이어
-</div>
-
-<div id="roomPlayers"></div>
-
-<div style="display:flex;gap:10px;margin-top:15px">
-
-<button id="readyBtn" class="btn primary">
-준비
-</button>
-
-<button id="leaveRoomBtn" class="btn danger">
-방 나가기
-</button>
-
-</div>
-
-<button
-    id="startGameBtn"
-    class="btn secondary hidden"
->
-게임 시작
-</button>
-
-</div>
-
-</section>
-
-</main>
-
-</section>
-
-
-<!-- =========================
+<!-- =======================================================
      GAME
-========================= -->
+======================================================= -->
 
-<section id="gameScreen" class="hidden">
-
-<canvas id="gameCanvas"></canvas>
-
-<div class="gameHUD">
-
-<div class="hudBox">
-<span id="gameModeText">1v1</span>
-</div>
-
-<div class="hudBox">
-❤️ <span id="hpText">100</span>
-</div>
-
-</div>
-
-
-<div id="gameOver" class="hidden">
-
-<div class="gameOverBox">
-
-<h1 id="winnerText">
-승리!
-</h1>
-
-<button
-    id="returnRoomBtn"
-    class="btn primary"
+<div
+    id="game"
+    class="hidden"
 >
-방으로 돌아가기
-</button>
+
+    <canvas id="canvas"></canvas>
+
+
+    <div class="gameTop">
+
+        <div class="gameInfo">
+
+            <b id="gameMode">
+                1v1
+            </b>
+
+            <div
+                id="gameMap"
+                style="font-size:11px;color:#8791ad"
+            >
+                평원
+            </div>
+
+        </div>
+
+
+        <div class="gameInfo">
+
+            <div>
+                ❤️
+                <span id="hpText">
+                    100
+                </span>
+            </div>
+
+            <div class="hpBar">
+                <div
+                    id="hpFill"
+                    class="hpFill"
+                ></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="mobileControls"
+        class="mobileControls"
+    >
+
+        <div class="controlSide">
+
+            <button
+                class="control"
+                data-key="left"
+            >
+                ◀
+            </button>
+
+            <button
+                class="control"
+                data-key="right"
+            >
+                ▶
+            </button>
+
+            <button
+                class="control"
+                data-key="jump"
+            >
+                ▲
+            </button>
+
+        </div>
+
+
+        <div class="controlSide">
+
+            <button
+                id="attackControl"
+                class="control attack"
+            >
+                ⚔
+            </button>
+
+            <button
+                id="specialControl"
+                class="control attack"
+            >
+                ★
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="gameResult"
+        class="gameMenu hidden"
+    >
+
+        <div class="gameMenuBox">
+
+            <h1 id="resultTitle">
+                승리!
+            </h1>
+
+            <p id="resultText">
+                전투 종료
+            </p>
+
+            <button
+                id="returnRoom"
+                class="btn btnPrimary"
+            >
+                방으로 돌아가기
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
+
+<div
+    id="toast"
+    class="hidden"
+></div>
 
 
-<div class="controls">
-
-<div class="controlGroup">
-
-<button class="controlBtn" data-key="ArrowLeft">
-←
-</button>
-
-<button class="controlBtn" data-key="ArrowRight">
-→
-</button>
-
-<button class="controlBtn" data-key="ArrowUp">
-↑
-</button>
-
-</div>
-
-<div class="controlGroup">
-
-<button class="controlBtn attack" id="attackBtn">
-⚔
-</button>
-
-<button class="controlBtn attack" id="specialBtn">
-★
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<div id="toast" class="toast hidden"></div>
-
-
-<!-- =========================
-     FIREBASE
-========================= -->
+<!-- =======================================================
+     FIREBASE + GAME
+======================================================= -->
 
 <script type="module">
 
 import {
     initializeApp
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+} from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
     getAuth,
@@ -924,52 +1422,79 @@ import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+} from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
     getDatabase,
     ref,
-    set,
     get,
+    set,
     update,
     push,
     remove,
     onValue,
     onDisconnect,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+    query,
+    orderByChild,
+    equalTo,
+    serverTimestamp,
+    runTransaction
+} from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 
-/* ==========================================================
-   🔥 FIREBASE CONFIG
-   네 Firebase 콘솔에서 가져와서 교체
-========================================================== */
+/* =========================================================
+   FIREBASE
+========================================================= */
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA9et64waizsOB-_vdZPtXCmfgAcJu9s8c",
-    authDomain: "stickwar-3b833.firebaseapp.com",
-    databaseURL: "https://stickwar-3b833-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "stickwar-3b833",
-    storageBucket: "stickwar-3b833.firebasestorage.app",
-    messagingSenderId: "157384061391",
-    appId: "1:157384061391:web:bea3eb1147b697f230a2ba",
-    measurementId: "G-8J21LW7Q6W"
-  };
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyA9et64waizsOB-_vdZPtXCmfgAcJu9s8c",
+
+    authDomain:
+        "stickwar-3b833.firebaseapp.com",
+
+    databaseURL:
+        "https://stickwar-3b833-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+    projectId:
+        "stickwar-3b833",
+
+    storageBucket:
+        "stickwar-3b833.firebasestorage.app",
+
+    messagingSenderId:
+        "157384061391",
+
+    appId:
+        "1:157384061391:web:bea3eb1147b697f230a2ba",
+
+    measurementId:
+        "G-8J21LW7Q6W"
+
+};
 
 
-const app = initializeApp(firebaseConfig);
+const firebaseApp =
+    initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+    getAuth(firebaseApp);
 
-const db = getDatabase(app);
+const db =
+    getDatabase(firebaseApp);
 
 const googleProvider =
     new GoogleAuthProvider();
 
 
-/* ==========================================================
-   GAME DATA
-========================================================== */
+/* =========================================================
+   CONSTANTS
+========================================================= */
+
+const SDK_VERSION = "StickWar-1.0";
 
 const WEAPONS = {
 
@@ -977,8 +1502,8 @@ const WEAPONS = {
         name:"철검",
         icon:"⚔️",
         damage:25,
-        range:65,
-        speed:450,
+        range:75,
+        cooldown:430,
         type:"melee"
     },
 
@@ -986,61 +1511,100 @@ const WEAPONS = {
         name:"활",
         icon:"🏹",
         damage:18,
-        range:500,
-        speed:700,
-        type:"projectile"
+        range:650,
+        cooldown:650,
+        type:"ranged",
+        projectileSpeed:11
     },
 
     gun:{
         name:"블래스터",
         icon:"🔫",
-        damage:15,
-        range:700,
-        speed:180,
-        type:"projectile"
+        damage:12,
+        range:850,
+        cooldown:180,
+        type:"ranged",
+        projectileSpeed:15
     },
 
     hammer:{
-        name:"망치",
+        name:"대망치",
         icon:"🔨",
-        damage:40,
-        range:70,
-        speed:900,
+        damage:42,
+        range:82,
+        cooldown:900,
         type:"melee"
     },
 
     spear:{
         name:"창",
         icon:"🔱",
-        damage:32,
-        range:100,
-        speed:600,
+        damage:31,
+        range:115,
+        cooldown:580,
         type:"melee"
     },
 
     magic:{
         name:"마법봉",
         icon:"✨",
-        damage:35,
-        range:500,
-        speed:1000,
-        type:"projectile"
+        damage:34,
+        range:600,
+        cooldown:1000,
+        type:"ranged",
+        projectileSpeed:8
+    }
+
+};
+
+const MAPS = {
+
+    plain:{
+        name:"평원",
+        sky:"#91bde7",
+        ground:"#4b7d45"
+    },
+
+    city:{
+        name:"도시",
+        sky:"#777c8b",
+        ground:"#30333b"
+    },
+
+    forest:{
+        name:"숲",
+        sky:"#79a9a0",
+        ground:"#294a2d"
+    },
+
+    arena:{
+        name:"아레나",
+        sky:"#b49a8a",
+        ground:"#684b3d"
     }
 
 };
 
 
-/* ==========================================================
+/* =========================================================
    STATE
-========================================================== */
+========================================================= */
 
-let currentUser = null;
+let user = null;
+
+let profile = null;
 
 let currentRoomId = null;
 
 let currentRoom = null;
 
-let roomUnsubscribe = null;
+let roomStop = null;
+
+let requestsStop = null;
+
+let friendsStop = null;
+
+let presenceStop = null;
 
 let selectedMode = "1v1";
 
@@ -1048,36 +1612,93 @@ let selectedMap = "plain";
 
 let selectedWeapon = "sword";
 
-let myReady = false;
+let rtc = {};
+
+let dataChannels = {};
+
+let pendingCandidates = {};
+
+let remotePlayers = {};
+
+let localGameStarted = false;
+
+let gameLoopId = null;
+
+let lastNetworkSend = 0;
+
+let keys = {
+
+    left:false,
+    right:false,
+    jump:false
+
+};
+
+let localPlayer = null;
+
+let bullets = [];
+
+let effects = [];
+
+let gameOver = false;
 
 
-/* ==========================================================
-   UI
-========================================================== */
+/* =========================================================
+   DOM
+========================================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+    document.getElementById(id);
 
-function toast(message){
+function showToast(message){
 
-    $("toast").textContent = message;
+    const t =
+        $("toast");
 
-    $("toast").classList.remove("hidden");
+    t.textContent =
+        message;
 
-    clearTimeout(window.__toastTimer);
+    t.classList.remove(
+        "hidden"
+    );
 
-    window.__toastTimer =
-        setTimeout(()=>{
-            $("toast").classList.add("hidden");
-        },2500);
+    clearTimeout(
+        showToast.timer
+    );
+
+    showToast.timer =
+        setTimeout(
+            ()=>{
+                t.classList.add(
+                    "hidden"
+                );
+            },
+            2600
+        );
 
 }
 
 
-/* ==========================================================
-   AUTH
-========================================================== */
+function escapeHtml(value){
 
-$("googleBtn").onclick = async()=>{
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+$("googleBtn").onclick =
+async()=>{
 
     try{
 
@@ -1086,24 +1707,31 @@ $("googleBtn").onclick = async()=>{
             googleProvider
         );
 
-    }catch(error){
+    }catch(e){
 
-        toast(error.message);
+        $("authError")
+            .textContent =
+            e.message;
 
     }
 
 };
 
 
-$("emailLoginBtn").onclick = async()=>{
+$("loginBtn").onclick =
+async()=>{
 
-    const email = $("email").value.trim();
+    const email =
+        $("emailInput").value.trim();
 
-    const password = $("password").value;
+    const password =
+        $("passwordInput").value;
 
     if(!email || !password){
 
-        toast("이메일과 비밀번호를 입력해.");
+        $("authError")
+            .textContent =
+            "이메일과 비밀번호를 입력해.";
 
         return;
 
@@ -1117,24 +1745,31 @@ $("emailLoginBtn").onclick = async()=>{
             password
         );
 
-    }catch(error){
+    }catch(e){
 
-        toast(error.message);
+        $("authError")
+            .textContent =
+            e.message;
 
     }
 
 };
 
 
-$("signupBtn").onclick = async()=>{
+$("registerBtn").onclick =
+async()=>{
 
-    const email = $("email").value.trim();
+    const email =
+        $("emailInput").value.trim();
 
-    const password = $("password").value;
+    const password =
+        $("passwordInput").value;
 
     if(password.length < 6){
 
-        toast("비밀번호는 6자리 이상.");
+        $("authError")
+            .textContent =
+            "비밀번호는 6자리 이상이어야 해.";
 
         return;
 
@@ -1148,45 +1783,40 @@ $("signupBtn").onclick = async()=>{
             password
         );
 
-    }catch(error){
+    }catch(e){
 
-        toast(error.message);
+        $("authError")
+            .textContent =
+            e.message;
 
     }
 
 };
 
 
-$("logoutBtn").onclick = ()=>{
+$("logoutBtn").onclick =
+async()=>{
 
-    signOut(auth);
+    await leaveCurrentRoom();
+
+    await signOut(auth);
 
 };
 
 
-/* ==========================================================
+/* =========================================================
    AUTH STATE
-========================================================== */
+========================================================= */
 
 onAuthStateChanged(
     auth,
-    async user=>{
+    async firebaseUser=>{
 
-        if(user){
+        if(!firebaseUser){
 
-            currentUser = user;
+            user = null;
 
-            await createUserProfile();
-
-            showApp();
-
-            listenUserData();
-
-        }else{
-
-            currentUser = null;
-
-            $("loginScreen")
+            $("authScreen")
                 .classList
                 .remove("hidden");
 
@@ -1194,372 +1824,669 @@ onAuthStateChanged(
                 .classList
                 .add("hidden");
 
+            return;
+
+        }
+
+        user =
+            firebaseUser;
+
+        try{
+
+            await ensureProfile();
+
+            await setupPresence();
+
+            renderAccount();
+
+            renderWeapons();
+
+            setupRealtimeListeners();
+
+            $("authScreen")
+                .classList
+                .add("hidden");
+
+            $("app")
+                .classList
+                .remove("hidden");
+
+            $("networkStat")
+                .textContent =
+                "ONLINE";
+
+        }catch(e){
+
+            console.error(e);
+
+            showToast(
+                "프로필 생성 실패: "+
+                e.message
+            );
+
         }
 
     }
 );
 
 
-/* ==========================================================
-   USER PROFILE
-========================================================== */
+/* =========================================================
+   PROFILE
+========================================================= */
 
-async function createUserProfile(){
+function normalizeNickname(name){
 
-    const userRef =
-        ref(db,"users/"+currentUser.uid);
-
-    const snap =
-        await get(userRef);
-
-    if(!snap.exists()){
-
-        let name =
-            currentUser.displayName;
-
-        if(!name){
-
-            name =
-                currentUser.email
-                    ?.split("@")[0] ||
-                "Player";
-
-        }
-
-        await set(
-            userRef,
-            {
-
-                uid:currentUser.uid,
-
-                displayName:name,
-
-                email:
-                    currentUser.email || "",
-
-                ownedWeapons:{
-                    sword:true,
-                    bow:true,
-                    gun:false,
-                    hammer:false,
-                    spear:false,
-                    magic:false
-                },
-
-                createdAt:
-                    serverTimestamp()
-
-            }
-        );
-
-    }
+    return String(name)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g,"");
 
 }
 
 
-/* ==========================================================
-   SHOW APP
-========================================================== */
-
-function showApp(){
-
-    $("loginScreen")
-        .classList
-        .add("hidden");
-
-    $("app")
-        .classList
-        .remove("hidden");
-
-    const name =
-        currentUser.displayName ||
-        currentUser.email?.split("@")[0] ||
-        "Player";
-
-    $("displayNameText")
-        .textContent = name;
-
-    $("uidText")
-        .textContent =
-        currentUser.uid;
-
-    $("avatar")
-        .textContent =
-        name[0].toUpperCase();
-
-}
-
-
-/* ==========================================================
-   USER DATA LISTENER
-========================================================== */
-
-function listenUserData(){
+async function ensureProfile(){
 
     const userRef =
         ref(
             db,
-            "users/"+currentUser.uid
+            "users/"+user.uid
         );
 
-    onValue(
-        userRef,
-        snapshot=>{
+    const snap =
+        await get(userRef);
 
-            const data =
-                snapshot.val();
+    if(snap.exists()){
 
-            if(!data) return;
+        profile =
+            snap.val();
 
-            renderWeapons(
-                data.ownedWeapons || {}
+        selectedWeapon =
+            profile.selectedWeapon ||
+            firstOwnedWeapon(
+                profile.ownedWeapons
             );
 
-        }
+        return;
+
+    }
+
+    let suggested =
+        user.displayName ||
+        user.email?.split("@")[0] ||
+        "Player";
+
+    suggested =
+        suggested
+        .replace(/[.#$[\]/]/g,"")
+        .slice(0,20);
+
+    if(!suggested)
+        suggested = "Player";
+
+
+    const lower =
+        normalizeNickname(
+            suggested
+        );
+
+
+    const usernameRef =
+        ref(
+            db,
+            "usernames/"+lower
+        );
+
+    const transaction =
+        await runTransaction(
+            usernameRef,
+            current=>{
+
+                if(current === null)
+                    return user.uid;
+
+                return;
+
+            }
+        );
+
+
+    if(!transaction.committed){
+
+        suggested =
+            "Player"+Math.floor(
+                Math.random()*99999
+            );
+
+    }
+
+
+    const nickname =
+        suggested;
+
+    const nicknameLower =
+        normalizeNickname(
+            nickname
+        );
+
+
+    profile = {
+
+        uid:user.uid,
+
+        displayName:nickname,
+
+        displayNameLower:
+            nicknameLower,
+
+        ownedWeapons:{
+            sword:true,
+            bow:true,
+            gun:false,
+            hammer:false,
+            spear:false,
+            magic:false
+        },
+
+        selectedWeapon:"sword",
+
+        createdAt:
+            serverTimestamp()
+
+    };
+
+
+    await set(
+        userRef,
+        profile
     );
 
-    listenFriends();
-
-    listenRequests();
+    await set(
+        ref(
+            db,
+            "usernames/"+nicknameLower
+        ),
+        user.uid
+    );
 
 }
 
 
-/* ==========================================================
+function firstOwnedWeapon(owned){
+
+    for(
+        const id in WEAPONS
+    ){
+
+        if(
+            owned?.[id]
+        )
+            return id;
+
+    }
+
+    return "sword";
+
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+function renderAccount(){
+
+    $("accountName")
+        .textContent =
+        profile.displayName;
+
+    $("accountUid")
+        .textContent =
+        user.uid;
+
+    $("avatar")
+        .textContent =
+        profile.displayName
+            .charAt(0)
+            .toUpperCase();
+
+}
+
+
+/* =========================================================
+   PRESENCE
+========================================================= */
+
+async function setupPresence(){
+
+    const connectedRef =
+        ref(
+            db,
+            ".info/connected"
+        );
+
+    presenceStop =
+        onValue(
+            connectedRef,
+            async snap=>{
+
+                if(
+                    snap.val() !== true
+                )
+                    return;
+
+                const statusRef =
+                    ref(
+                        db,
+                        "presence/"+user.uid
+                    );
+
+                await onDisconnect(
+                    statusRef
+                ).remove();
+
+                await set(
+                    statusRef,
+                    {
+                        online:true,
+                        at:serverTimestamp()
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   REALTIME LISTENERS
+========================================================= */
+
+function setupRealtimeListeners(){
+
+    if(requestsStop)
+        requestsStop();
+
+    if(friendsStop)
+        friendsStop();
+
+
+    requestsStop =
+        onValue(
+            ref(
+                db,
+                "friendRequests/"+user.uid
+            ),
+            snap=>{
+                renderRequests(
+                    snap.val() || {}
+                );
+            }
+        );
+
+
+    friendsStop =
+        onValue(
+            ref(
+                db,
+                "users/"+user.uid+"/friends"
+            ),
+            async snap=>{
+
+                await renderFriends(
+                    snap.val() || {}
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
    WEAPONS
-========================================================== */
+========================================================= */
 
-function renderWeapons(owned){
+function renderWeapons(){
 
-    const container =
-        $("weaponsList");
+    const owned =
+        profile?.ownedWeapons || {};
 
-    container.innerHTML = "";
+    const list =
+        $("weaponList");
+
+    list.innerHTML = "";
 
     let count = 0;
 
-    for(const id in WEAPONS){
+    for(
+        const id in WEAPONS
+    ){
 
-        if(!owned[id]) continue;
+        if(!owned[id])
+            continue;
 
         count++;
 
-        const weapon =
+        const w =
             WEAPONS[id];
 
         const div =
             document.createElement("div");
 
-        div.className = "card";
+        div.className =
+            "weapon"+
+            (
+                selectedWeapon === id
+                ? " selected"
+                : ""
+            );
 
         div.innerHTML = `
 
             <div class="weaponIcon">
-                ${weapon.icon}
+                ${w.icon}
             </div>
 
-            <h3>
-                ${weapon.name}
-            </h3>
+            <div class="weaponName">
+                ${w.name}
+            </div>
 
-            <p>
-                공격력: ${weapon.damage}
-            </p>
-
-            <button
-                class="btn primary"
-                data-weapon="${id}"
-            >
-                선택
-            </button>
+            <div class="weaponStats">
+                공격력 ${w.damage}
+                ·
+                사거리 ${w.range}
+            </div>
 
         `;
 
-        div.querySelector("button")
-            .onclick = ()=>{
+        div.onclick =
+        async()=>{
 
-                selectedWeapon = id;
+            selectedWeapon =
+                id;
 
-                toast(
-                    `${weapon.name} 선택됨`
-                );
+            await update(
+                ref(
+                    db,
+                    "users/"+user.uid
+                ),
+                {
+                    selectedWeapon:id
+                }
+            );
 
-            };
+            renderWeapons();
 
-        container.appendChild(div);
+            showToast(
+                w.name+
+                " 선택됨"
+            );
+
+        };
+
+        list.appendChild(
+            div
+        );
 
     }
 
-    $("weaponCount")
+    $("weaponStat")
         .textContent =
-        count+"개 보유";
+        count;
 
 }
 
 
-/* ==========================================================
-   FRIENDS
-========================================================== */
+/* =========================================================
+   NAV
+========================================================= */
 
-function listenFriends(){
+document
+.querySelectorAll(".navBtn")
+.forEach(btn=>{
 
-    const friendsRef =
-        ref(
-            db,
-            "users/"+currentUser.uid+"/friends"
+    btn.onclick =
+    ()=>{
+
+        document
+        .querySelectorAll(".navBtn")
+        .forEach(
+            x=>x.classList.remove(
+                "active"
+            )
         );
 
-    onValue(
-        friendsRef,
-        async snapshot=>{
+        btn.classList.add(
+            "active"
+        );
 
-            const friends =
-                snapshot.val() || {};
+        document
+        .querySelectorAll(".page")
+        .forEach(
+            x=>x.classList.add(
+                "hidden"
+            )
+        );
 
-            const list =
-                $("friendsList");
+        $(
+            "page-"+btn.dataset.page
+        )
+        .classList
+        .remove("hidden");
 
-            list.innerHTML = "";
+    };
 
-            const ids =
-                Object.keys(friends);
-
-            $("friendCount")
-                .textContent =
-                ids.length+"명";
-
-            if(!ids.length){
-
-                list.innerHTML =
-                    `<p style="color:#7f89aa">
-                        친구가 아직 없어.
-                    </p>`;
-
-                return;
-
-            }
-
-            for(const uid of ids){
-
-                const userSnap =
-                    await get(
-                        ref(db,"users/"+uid)
-                    );
-
-                const user =
-                    userSnap.val();
-
-                if(!user) continue;
-
-                const row =
-                    document.createElement("div");
-
-                row.className =
-                    "friendRow";
-
-                row.innerHTML = `
-
-                    <div class="friendLeft">
-
-                        <div class="avatar">
-                            ${(user.displayName||"?")[0]}
-                        </div>
-
-                        <div>
-                            <b>
-                                ${escapeHtml(user.displayName)}
-                            </b>
-
-                            <div style="
-                                font-size:10px;
-                                color:#687292
-                            ">
-                                ${uid.slice(0,12)}...
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="friendActions">
-
-                        <button class="miniBtn">
-                            초대
-                        </button>
-
-                    </div>
-
-                `;
-
-                row.querySelector("button")
-                    .onclick = ()=>{
-                        toast(
-                            "방을 만든 뒤 친구를 초대할 수 있어."
-                        );
-                    };
-
-                list.appendChild(row);
-
-            }
-
-        }
-    );
-
-}
+});
 
 
-$("sendFriendBtn").onclick =
-async()=>{
+/* =========================================================
+   FRIEND SEARCH
+========================================================= */
 
-    const targetUid =
-        $("friendUidInput")
+$("searchUserBtn").onclick =
+searchUser;
+
+$("nicknameSearch").addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key === "Enter")
+            searchUser();
+
+    }
+);
+
+
+async function searchUser(){
+
+    const nickname =
+        $("nicknameSearch")
             .value
             .trim();
 
-    if(!targetUid){
+    if(!nickname){
 
-        toast("친구 UID를 입력해.");
-
-        return;
-
-    }
-
-    if(targetUid === currentUser.uid){
-
-        toast("자기 자신은 친구 추가할 수 없어.");
-
-        return;
-
-    }
-
-    const targetSnap =
-        await get(
-            ref(db,"users/"+targetUid)
+        showToast(
+            "닉네임을 입력해."
         );
 
-    if(!targetSnap.exists()){
+        return;
 
-        toast("존재하지 않는 UID야.");
+    }
+
+    const lower =
+        normalizeNickname(
+            nickname
+        );
+
+
+    const usernameSnap =
+        await get(
+            ref(
+                db,
+                "usernames/"+lower
+            )
+        );
+
+
+    const result =
+        $("searchResult");
+
+
+    if(!usernameSnap.exists()){
+
+        result.innerHTML = `
+            <div class="subtitle">
+                "${escapeHtml(nickname)}"을(를)
+                찾을 수 없어.
+            </div>
+        `;
 
         return;
 
     }
+
+
+    const targetUid =
+        usernameSnap.val();
+
+
+    if(
+        targetUid === user.uid
+    ){
+
+        result.innerHTML = `
+            <div class="subtitle">
+                자기 자신이야 😎
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const userSnap =
+        await get(
+            ref(
+                db,
+                "users/"+targetUid
+            )
+        );
+
+
+    const target =
+        userSnap.val();
+
+
+    if(!target){
+
+        result.innerHTML =
+            "<div class='subtitle'>사용자를 찾을 수 없어.</div>";
+
+        return;
+
+    }
+
+
+    result.innerHTML = `
+
+        <div class="searchResult">
+
+            <div class="userLeft">
+
+                <div class="miniAvatar">
+                    ${escapeHtml(
+                        target.displayName
+                            .charAt(0)
+                    )}
+                </div>
+
+                <div>
+
+                    <b>
+                        ${escapeHtml(
+                            target.displayName
+                        )}
+                    </b>
+
+                    <div class="subtitle">
+                        ${targetUid.slice(0,12)}...
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                id="addFoundUser"
+                class="mini"
+            >
+                친구 추가
+            </button>
+
+        </div>
+
+    `;
+
+
+    $("addFoundUser").onclick =
+    async()=>{
+
+        await sendFriendRequest(
+            targetUid,
+            target.displayName
+        );
+
+    };
+
+}
+
+
+/* =========================================================
+   FRIEND REQUEST
+========================================================= */
+
+async function sendFriendRequest(
+    targetUid,
+    targetName
+){
+
+    const existing =
+        await get(
+            ref(
+                db,
+                `users/${user.uid}/friends/${targetUid}`
+            )
+        );
+
+    if(existing.exists()){
+
+        showToast(
+            "이미 친구야."
+        );
+
+        return;
+
+    }
+
 
     await set(
         ref(
             db,
-            `friendRequests/${targetUid}/${currentUser.uid}`
+            `friendRequests/${targetUid}/${user.uid}`
         ),
         {
 
-            fromUid:
-                currentUser.uid,
-
-            toUid:
-                targetUid,
+            fromUid:user.uid,
 
             fromName:
-                currentUser.displayName ||
-                currentUser.email,
+                profile.displayName,
+
+            toUid:targetUid,
+
+            toName:targetName,
 
             createdAt:
                 serverTimestamp()
@@ -1567,219 +2494,497 @@ async()=>{
         }
     );
 
-    toast("친구 요청을 보냈어.");
 
-    $("friendUidInput").value = "";
-
-};
-
-
-function listenRequests(){
-
-    const requestRef =
-        ref(
-            db,
-            `friendRequests/${currentUser.uid}`
-        );
-
-    onValue(
-        requestRef,
-        async snapshot=>{
-
-            const requests =
-                snapshot.val() || {};
-
-            const list =
-                $("requestsList");
-
-            list.innerHTML = "";
-
-            const ids =
-                Object.keys(requests);
-
-            if(!ids.length){
-
-                list.innerHTML =
-                    `<p style="color:#7f89aa">
-                        받은 요청 없음
-                    </p>`;
-
-                return;
-
-            }
-
-            for(const uid of ids){
-
-                const request =
-                    requests[uid];
-
-                const row =
-                    document.createElement("div");
-
-                row.className =
-                    "friendRow";
-
-                row.innerHTML = `
-
-                    <div>
-                        <b>
-                            ${escapeHtml(
-                                request.fromName || "Player"
-                            )}
-                        </b>
-                        <div style="
-                            color:#687292;
-                            font-size:11px;
-                        ">
-                            친구 요청
-                        </div>
-                    </div>
-
-                    <button class="miniBtn">
-                        수락
-                    </button>
-
-                `;
-
-                row.querySelector("button")
-                    .onclick = ()=>acceptFriend(uid);
-
-                list.appendChild(row);
-
-            }
-
-        }
+    showToast(
+        targetName+
+        "에게 친구 요청을 보냈어."
     );
 
 }
 
 
-async function acceptFriend(uid){
+function renderRequests(requests){
+
+    const list =
+        $("requestList");
+
+    list.innerHTML = "";
+
+    const ids =
+        Object.keys(requests);
+
+    if(!ids.length){
+
+        list.innerHTML =
+            `<div class="subtitle">
+                받은 친구 요청이 없어.
+            </div>`;
+
+        return;
+
+    }
+
+
+    for(
+        const uid of ids
+    ){
+
+        const request =
+            requests[uid];
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "userRow";
+
+        row.innerHTML = `
+
+            <div class="userLeft">
+
+                <div class="miniAvatar">
+                    ${escapeHtml(
+                        request.fromName
+                            ?.charAt(0) || "?"
+                    )}
+                </div>
+
+                <div>
+
+                    <b>
+                        ${escapeHtml(
+                            request.fromName
+                        )}
+                    </b>
+
+                    <div class="subtitle">
+                        친구 요청
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="mini">
+                수락
+            </button>
+
+        `;
+
+
+        row.querySelector(
+            "button"
+        ).onclick =
+        ()=>acceptFriend(
+            request
+        );
+
+
+        list.appendChild(
+            row
+        );
+
+    }
+
+}
+
+
+async function acceptFriend(
+    request
+){
+
+    const otherUid =
+        request.fromUid;
+
 
     const updates = {};
 
-    updates[
-        `users/${currentUser.uid}/friends/${uid}`
-    ] = true;
 
     updates[
-        `users/${uid}/friends/${currentUser.uid}`
+        `users/${user.uid}/friends/${otherUid}`
     ] = true;
 
+
     updates[
-        `friendRequests/${currentUser.uid}/${uid}`
+        `users/${otherUid}/friends/${user.uid}`
+    ] = true;
+
+
+    updates[
+        `friendRequests/${user.uid}/${otherUid}`
     ] = null;
+
 
     await update(
         ref(db),
         updates
     );
 
-    toast("친구 추가 완료!");
+
+    showToast(
+        "친구 추가 완료!"
+    );
 
 }
 
 
-/* ==========================================================
-   ROOM OPTIONS
-========================================================== */
+/* =========================================================
+   FRIEND LIST
+========================================================= */
 
-document
-.querySelectorAll(".modeOption")
-.forEach(button=>{
+async function renderFriends(
+    friends
+){
 
-    button.onclick = ()=>{
+    const list =
+        $("friendList");
 
-        document
-        .querySelectorAll(".modeOption")
-        .forEach(x =>
-            x.classList.remove("selected")
-        );
+    list.innerHTML = "";
 
-        button.classList.add("selected");
+    const ids =
+        Object.keys(friends);
 
-        selectedMode =
-            button.dataset.mode;
-
-    };
-
-});
+    $("friendStat")
+        .textContent =
+        ids.length;
 
 
-document
-.querySelectorAll(".mapOption")
-.forEach(button=>{
+    if(!ids.length){
 
-    button.onclick = ()=>{
-
-        document
-        .querySelectorAll(".mapOption")
-        .forEach(x =>
-            x.classList.remove("selected")
-        );
-
-        button.classList.add("selected");
-
-        selectedMap =
-            button.dataset.map;
-
-    };
-
-});
-
-
-/* ==========================================================
-   CREATE ROOM
-========================================================== */
-
-$("createRoomBtn").onclick =
-async()=>{
-
-    if(currentRoomId){
-
-        toast("이미 방에 들어가 있어.");
+        list.innerHTML =
+            `<div class="subtitle">
+                아직 친구가 없어.
+            </div>`;
 
         return;
 
     }
 
-    const roomRef =
-        push(ref(db,"rooms"));
 
-    currentRoomId =
-        roomRef.key;
+    for(
+        const uid of ids
+    ){
 
-    const name =
-        currentUser.displayName ||
-        currentUser.email ||
-        "Player";
+        const snap =
+            await get(
+                ref(
+                    db,
+                    "users/"+uid
+                )
+            );
 
-    const roomData = {
+        if(!snap.exists())
+            continue;
 
-        hostUid:
-            currentUser.uid,
+        const f =
+            snap.val();
 
-        mode:
-            selectedMode,
 
-        map:
-            selectedMap,
+        const presence =
+            await get(
+                ref(
+                    db,
+                    "presence/"+uid
+                )
+            );
 
-        status:
-            "waiting",
+
+        const online =
+            presence.exists();
+
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "userRow";
+
+        row.innerHTML = `
+
+            <div class="userLeft">
+
+                <div class="miniAvatar">
+                    ${escapeHtml(
+                        f.displayName
+                            .charAt(0)
+                    )}
+                </div>
+
+                <div>
+
+                    <b>
+                        ${escapeHtml(
+                            f.displayName
+                        )}
+                    </b>
+
+                    <div class="subtitle">
+
+                        <span
+                            class="onlineDot ${
+                                online ? "on" : ""
+                            }"
+                        ></span>
+
+                        ${
+                            online
+                            ? "온라인"
+                            : "오프라인"
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="mini inviteFriend"
+            >
+                방 초대
+            </button>
+
+        `;
+
+
+        row.querySelector(
+            ".inviteFriend"
+        ).onclick =
+        ()=>{
+
+            if(!currentRoomId){
+
+                showToast(
+                    "먼저 방을 만들어."
+                );
+
+                return;
+
+            }
+
+            copyText(
+                currentRoomId
+            );
+
+            showToast(
+                f.displayName+
+                "에게 방 코드 "+
+                currentRoomId+
+                "를 보내!"
+            );
+
+        };
+
+
+        list.appendChild(
+            row
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MODE / MAP
+========================================================= */
+
+document
+.querySelectorAll(".mode")
+.forEach(btn=>{
+
+    btn.onclick =
+    ()=>{
+
+        document
+        .querySelectorAll(".mode")
+        .forEach(
+            x=>x.classList.remove(
+                "selected"
+            )
+        );
+
+        btn.classList.add(
+            "selected"
+        );
+
+        selectedMode =
+            btn.dataset.mode;
+
+    };
+
+});
+
+
+document
+.querySelectorAll(".map")
+.forEach(btn=>{
+
+    btn.onclick =
+    ()=>{
+
+        document
+        .querySelectorAll(".map")
+        .forEach(
+            x=>x.classList.remove(
+                "selected"
+            )
+        );
+
+        btn.classList.add(
+            "selected"
+        );
+
+        selectedMap =
+            btn.dataset.map;
+
+    };
+
+});
+
+
+/* =========================================================
+   ROOM CODE
+========================================================= */
+
+function generateRoomCode(){
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "";
+
+    for(
+        let i=0;
+        i<6;
+        i++
+    ){
+
+        code +=
+            chars[
+                Math.floor(
+                    Math.random()*
+                    chars.length
+                )
+            ];
+
+    }
+
+    return code;
+
+}
+
+
+/* =========================================================
+   MAX PLAYERS
+========================================================= */
+
+function maxPlayers(mode){
+
+    if(mode === "1v1")
+        return 2;
+
+    if(mode === "2v2")
+        return 4;
+
+    if(mode === "ffa3")
+        return 3;
+
+    return 4;
+
+}
+
+
+/* =========================================================
+   CREATE ROOM
+========================================================= */
+
+$("createRoomBtn").onclick =
+createRoom;
+
+
+async function createRoom(){
+
+    if(currentRoomId){
+
+        showToast(
+            "이미 방에 들어가 있어."
+        );
+
+        return;
+
+    }
+
+
+    let code = "";
+
+    let tries = 0;
+
+
+    while(tries < 10){
+
+        code =
+            generateRoomCode();
+
+        const snap =
+            await get(
+                ref(
+                    db,
+                    "rooms/"+code
+                )
+            );
+
+        if(!snap.exists())
+            break;
+
+        tries++;
+
+    }
+
+
+    if(!code){
+
+        showToast(
+            "방 코드 생성 실패"
+        );
+
+        return;
+
+    }
+
+
+    const room = {
+
+        code,
+
+        hostUid:user.uid,
+
+        mode:selectedMode,
+
+        map:selectedMap,
+
+        status:"waiting",
 
         createdAt:
             serverTimestamp(),
 
         players:{
 
-            [currentUser.uid]:{
+            [user.uid]:{
 
-                displayName:name,
+                uid:user.uid,
+
+                displayName:
+                    profile.displayName,
+
+                weapon:selectedWeapon,
 
                 ready:false,
 
-                weapon:selectedWeapon
+                team:
+                    selectedMode === "2v2"
+                    ? 0
+                    : null
 
             }
 
@@ -1787,124 +2992,279 @@ async()=>{
 
     };
 
+
     await set(
-        roomRef,
-        roomData
+        ref(
+            db,
+            "rooms/"+code
+        ),
+        room
     );
 
-    listenRoom();
 
-    toast(
-        "방 생성 완료: "+currentRoomId
+    await enterRoom(
+        code
+    );
+
+}
+
+
+/* =========================================================
+   JOIN ROOM
+========================================================= */
+
+$("joinRoomBtn").onclick =
+async()=>{
+
+    const code =
+        $("roomCodeInput")
+            .value
+            .trim()
+            .toUpperCase();
+
+    if(
+        !/^[A-Z0-9]{6}$/.test(code)
+    ){
+
+        showToast(
+            "6자리 방 코드를 입력해."
+        );
+
+        return;
+
+    }
+
+
+    const snap =
+        await get(
+            ref(
+                db,
+                "rooms/"+code
+            )
+        );
+
+
+    if(!snap.exists()){
+
+        showToast(
+            "존재하지 않는 방이야."
+        );
+
+        return;
+
+    }
+
+
+    const room =
+        snap.val();
+
+
+    if(
+        room.status !== "waiting"
+    ){
+
+        showToast(
+            "이미 시작된 방이야."
+        );
+
+        return;
+
+    }
+
+
+    const count =
+        Object.keys(
+            room.players || {}
+        ).length;
+
+
+    if(
+        count >= maxPlayers(
+            room.mode
+        )
+    ){
+
+        showToast(
+            "방이 꽉 찼어."
+        );
+
+        return;
+
+    }
+
+
+    await set(
+        ref(
+            db,
+            `rooms/${code}/players/${user.uid}`
+        ),
+        {
+
+            uid:user.uid,
+
+            displayName:
+                profile.displayName,
+
+            weapon:selectedWeapon,
+
+            ready:false,
+
+            team:
+                room.mode === "2v2"
+                ? count % 2
+                : null
+
+        }
+    );
+
+
+    await enterRoom(
+        code
     );
 
 };
 
 
-/* ==========================================================
-   ROOM LISTENER
-========================================================== */
+/* =========================================================
+   ENTER ROOM
+========================================================= */
 
-function listenRoom(){
+async function enterRoom(
+    code
+){
 
-    if(roomUnsubscribe)
-        roomUnsubscribe();
+    currentRoomId =
+        code;
 
-    const roomRef =
-        ref(
-            db,
-            "rooms/"+currentRoomId
-        );
 
-    roomUnsubscribe =
+    if(roomStop)
+        roomStop();
+
+
+    roomStop =
         onValue(
-            roomRef,
-            snapshot=>{
+            ref(
+                db,
+                "rooms/"+code
+            ),
+            async snap=>{
 
-                if(!snapshot.exists()){
+                if(!snap.exists()){
 
-                    currentRoomId = null;
-
-                    $("roomPanel")
-                        .classList
-                        .add("hidden");
+                    await leaveLocalRoom();
 
                     return;
 
                 }
 
+
                 currentRoom =
-                    snapshot.val();
+                    snap.val();
+
 
                 renderRoom();
+
+
+                if(
+                    currentRoom.status ===
+                    "playing"
+                ){
+
+                    if(!localGameStarted){
+
+                        await startOnlineGame();
+
+                    }
+
+                }
 
             }
         );
 
-    onDisconnect(
+
+    const playerRef =
         ref(
             db,
-            `rooms/${currentRoomId}/players/${currentUser.uid}`
-        )
+            `rooms/${code}/players/${user.uid}`
+        );
+
+
+    await onDisconnect(
+        playerRef
     ).remove();
+
+
+    document
+    .querySelector(
+        '[data-page="rooms"]'
+    )
+    .click();
+
+
+    showToast(
+        "방에 들어왔어!"
+    );
 
 }
 
 
-/* ==========================================================
-   ROOM RENDER
-========================================================== */
+/* =========================================================
+   RENDER ROOM
+========================================================= */
 
 function renderRoom(){
+
+    if(!currentRoom)
+        return;
+
 
     $("roomPanel")
         .classList
         .remove("hidden");
 
-    const room =
-        currentRoom;
 
-    $("roomInfo").innerHTML = `
+    $("roomCodeDisplay")
+        .textContent =
+        currentRoom.code;
 
-        <div>
-            <span class="badge">
-                ${room.mode}
-            </span>
 
-            <span class="badge">
-                ${room.map}
-            </span>
-        </div>
+    const map =
+        MAPS[
+            currentRoom.map
+        ] ||
+        MAPS.plain;
 
-        <div style="
-            margin-top:10px;
-            color:#7983a4;
-            font-size:12px;
-            word-break:break-all;
-        ">
-            Room ID: ${currentRoomId}
-        </div>
 
-    `;
+    $("roomDescription")
+        .textContent =
+        `${currentRoom.mode} · ${map.name}`;
+
 
     const players =
-        room.players || {};
+        currentRoom.players ||
+        {};
+
 
     const container =
         $("roomPlayers");
 
     container.innerHTML = "";
 
-    for(const uid in players){
 
-        const player =
+    for(
+        const uid in players
+    ){
+
+        const p =
             players[uid];
+
 
         const row =
             document.createElement("div");
 
         row.className =
-            "playerSlot";
+            "player";
+
 
         row.innerHTML = `
 
@@ -1912,28 +3272,30 @@ function renderRoom(){
 
                 <b>
                     ${escapeHtml(
-                        player.displayName
+                        p.displayName
                     )}
                 </b>
 
                 ${
-                    uid === room.hostUid
-                    ? `<span class="badge">
-                            HOST
-                       </span>`
+                    uid === currentRoom.hostUid
+                    ? `<span style="
+                        color:#9b91ff;
+                        font-size:10px;
+                        margin-left:5px;
+                    ">HOST</span>`
                     : ""
                 }
 
             </div>
 
             <div class="${
-                player.ready
+                p.ready
                 ? "ready"
                 : "notReady"
             }">
 
                 ${
-                    player.ready
+                    p.ready
                     ? "READY"
                     : "준비 안 함"
                 }
@@ -1942,51 +3304,61 @@ function renderRoom(){
 
         `;
 
-        container.appendChild(row);
+
+        container.appendChild(
+            row
+        );
 
     }
 
-    const mine =
-        players[currentUser.uid];
 
-    myReady =
-        mine?.ready === true;
+    const me =
+        players[user.uid];
 
-    $("readyBtn")
-        .textContent =
-        myReady
-        ? "준비 취소"
-        : "준비";
 
-    const isHost =
-        room.hostUid === currentUser.uid;
+    if(me){
 
-    const maxPlayers =
-        room.mode === "1v1"
-        ? 2
-        : room.mode === "2v2"
-        ? 4
-        : room.mode === "ffa3"
-        ? 3
-        : 4;
+        $("readyBtn")
+            .textContent =
+            me.ready
+            ? "준비 취소"
+            : "준비";
 
-    const playerCount =
-        Object.keys(players).length;
+    }
+
+
+    const count =
+        Object.keys(
+            players
+        ).length;
+
 
     const allReady =
-        playerCount >= 2 &&
+        count >= 2 &&
         Object.values(players)
-            .every(p=>p.ready);
+            .every(
+                p=>p.ready
+            );
 
-    if(isHost && allReady){
 
-        $("startGameBtn")
+    const host =
+        currentRoom.hostUid ===
+        user.uid;
+
+
+    if(
+        host &&
+        allReady &&
+        count >= 2
+    ){
+
+        $("startBtn")
             .classList
             .remove("hidden");
 
     }else{
 
-        $("startGameBtn")
+        $("startBtn")
             .classList
             .add("hidden");
 
@@ -1995,9 +3367,9 @@ function renderRoom(){
 }
 
 
-/* ==========================================================
+/* =========================================================
    READY
-========================================================== */
+========================================================= */
 
 $("readyBtn").onclick =
 async()=>{
@@ -2005,181 +3377,992 @@ async()=>{
     if(!currentRoomId)
         return;
 
-    await update(
 
+    const me =
+        currentRoom?.players?.[
+            user.uid
+        ];
+
+
+    await update(
         ref(
             db,
-            `rooms/${currentRoomId}/players/${currentUser.uid}`
+            `rooms/${currentRoomId}/players/${user.uid}`
         ),
-
         {
 
-            ready:!myReady,
+            ready:
+                !me?.ready,
 
-            weapon:selectedWeapon
+            weapon:
+                selectedWeapon
 
         }
-
     );
 
 };
 
 
-/* ==========================================================
+/* =========================================================
+   START ONLINE
+========================================================= */
+
+$("startBtn").onclick =
+async()=>{
+
+    if(
+        currentRoom?.hostUid !==
+        user.uid
+    )
+        return;
+
+
+    await update(
+        ref(
+            db,
+            "rooms/"+currentRoomId
+        ),
+        {
+            status:"playing",
+            startedAt:
+                serverTimestamp()
+        }
+    );
+
+};
+
+
+/* =========================================================
    LEAVE ROOM
-========================================================== */
+========================================================= */
 
 $("leaveRoomBtn").onclick =
-async()=>{
+leaveCurrentRoom;
+
+
+async function leaveCurrentRoom(){
 
     if(!currentRoomId)
         return;
 
-    await remove(
-        ref(
-            db,
-            `rooms/${currentRoomId}/players/${currentUser.uid}`
-        )
-    );
 
-    currentRoomId = null;
+    stopWebRTC();
 
-    currentRoom = null;
+
+    try{
+
+        await remove(
+            ref(
+                db,
+                `rooms/${currentRoomId}/players/${user.uid}`
+            )
+        );
+
+    }catch(e){
+
+        console.warn(e);
+
+    }
+
+
+    await leaveLocalRoom();
+
+}
+
+
+async function leaveLocalRoom(){
+
+    if(roomStop){
+
+        roomStop();
+
+        roomStop =
+            null;
+
+    }
+
+
+    currentRoomId =
+        null;
+
+    currentRoom =
+        null;
+
+    localGameStarted =
+        false;
 
     $("roomPanel")
         .classList
         .add("hidden");
 
-};
+}
 
 
-/* ==========================================================
-   START GAME
-========================================================== */
+/* =========================================================
+   COPY ROOM
+========================================================= */
 
-$("startGameBtn").onclick =
-async()=>{
-
-    if(!currentRoom)
-        return;
-
-    if(currentRoom.hostUid !== currentUser.uid)
-        return;
-
-    await update(
-
-        ref(
-            db,
-            "rooms/"+currentRoomId
-        ),
-
-        {
-            status:"playing"
-        }
-
-    );
-
-    startGame();
-
-};
-
-
-/* ==========================================================
-   ROOM STATUS WATCH
-========================================================== */
-
-function watchGameStatus(){
+$("copyRoomBtn").onclick =
+()=>{
 
     if(!currentRoomId)
         return;
 
-    onValue(
+    copyText(
+        currentRoomId
+    );
 
-        ref(
-            db,
-            `rooms/${currentRoomId}/status`
-        ),
+    showToast(
+        "방 코드 복사 완료!"
+    );
 
-        snapshot=>{
+};
 
-            if(
-                snapshot.val() === "playing" &&
-                !$("gameScreen")
-                    .classList
-                    .contains("hidden")
-            ){
 
-                return;
+async function copyText(text){
 
-            }
+    try{
 
-            if(
-                snapshot.val() === "playing"
-            ){
+        await navigator.clipboard.writeText(
+            text
+        );
 
-                startGame();
+    }catch{
 
-            }
+        const temp =
+            document.createElement("textarea");
+
+        temp.value =
+            text;
+
+        document.body.appendChild(
+            temp
+        );
+
+        temp.select();
+
+        document.execCommand(
+            "copy"
+        );
+
+        temp.remove();
+
+    }
+
+}
+
+
+/* =========================================================
+   WEBRTC
+=========================================================
+
+   구조:
+
+   A <----> B
+   A <----> C
+   A <----> D
+   B <----> C
+   B <----> D
+   C <----> D
+
+   최대 4명이므로 Mesh.
+========================================================= */
+
+const rtcConfig = {
+
+    iceServers:[
+
+        {
+            urls:
+                "stun:stun.l.google.com:19302"
+        },
+
+        {
+            urls:
+                "stun:stun1.l.google.com:19302"
+        }
+
+    ]
+
+};
+
+
+function stopWebRTC(){
+
+    for(
+        const uid in rtc
+    ){
+
+        try{
+            rtc[uid].close();
+        }catch{}
+
+    }
+
+
+    rtc = {};
+
+    dataChannels = {};
+
+    pendingCandidates = {};
+
+}
+
+
+/* =========================================================
+   START ONLINE GAME
+========================================================= */
+
+async function startOnlineGame(){
+
+    if(localGameStarted)
+        return;
+
+
+    localGameStarted =
+        true;
+
+
+    $("game")
+        .classList
+        .remove("hidden");
+
+
+    $("gameMode")
+        .textContent =
+        currentRoom.mode;
+
+
+    $("gameMap")
+        .textContent =
+        MAPS[
+            currentRoom.map
+        ]?.name || "평원";
+
+
+    initGame();
+
+
+    await setupWebRTC();
+
+
+    gameLoopId =
+        requestAnimationFrame(
+            gameLoop
+        );
+
+}
+
+
+/* =========================================================
+   SETUP WEBRTC
+========================================================= */
+
+async function setupWebRTC(){
+
+    const players =
+        Object.keys(
+            currentRoom.players || {}
+        );
+
+
+    for(
+        const peerUid of players
+    ){
+
+        if(peerUid === user.uid)
+            continue;
+
+
+        if(rtc[peerUid])
+            continue;
+
+
+        await createPeer(
+            peerUid
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE PEER
+========================================================= */
+
+async function createPeer(
+    peerUid
+){
+
+    if(rtc[peerUid])
+        return;
+
+
+    const pc =
+        new RTCPeerConnection(
+            rtcConfig
+        );
+
+
+    rtc[peerUid] =
+        pc;
+
+
+    pendingCandidates[peerUid] =
+        [];
+
+
+    pc.onicecandidate =
+    async event=>{
+
+        if(!event.candidate)
+            return;
+
+
+        await push(
+            ref(
+                db,
+                `rooms/${currentRoomId}/signal/${user.uid}/${peerUid}/candidates`
+            ),
+            event.candidate.toJSON()
+        );
+
+    };
+
+
+    pc.ondatachannel =
+    event=>{
+
+        setupDataChannel(
+            peerUid,
+            event.channel
+        );
+
+    };
+
+
+    pc.onconnectionstatechange =
+    ()=>{
+
+        console.log(
+            "WebRTC",
+            peerUid,
+            pc.connectionState
+        );
+
+        if(
+            pc.connectionState ===
+            "connected"
+        ){
+
+            showToast(
+                "플레이어 연결됨"
+            );
 
         }
 
+    };
+
+
+    /*
+       UID 순서가 작은 쪽이 offerer.
+       양쪽이 동시에 offer 만드는 문제를 방지.
+    */
+
+    if(
+        user.uid < peerUid
+    ){
+
+        const channel =
+            pc.createDataChannel(
+                "game"
+            );
+
+
+        setupDataChannel(
+            peerUid,
+            channel
+        );
+
+
+        const offer =
+            await pc.createOffer();
+
+
+        await pc.setLocalDescription(
+            offer
+        );
+
+
+        await set(
+            ref(
+                db,
+                `rooms/${currentRoomId}/signal/${user.uid}/${peerUid}/offer`
+            ),
+            {
+                type:"offer",
+                sdp:offer.sdp
+            }
+        );
+
+    }
+
+
+    listenSignal(
+        peerUid,
+        pc
     );
 
 }
 
 
-/* ==========================================================
-   GAME ENGINE
-========================================================== */
+/* =========================================================
+   SIGNALING
+========================================================= */
+
+const signalListeners = {};
+
+
+function listenSignal(
+    peerUid,
+    pc
+){
+
+    const base =
+        `rooms/${currentRoomId}/signal/${peerUid}/${user.uid}`;
+
+
+    if(
+        signalListeners[peerUid]
+    )
+        return;
+
+
+    signalListeners[peerUid] =
+        [];
+
+
+    const offerRef =
+        ref(
+            db,
+            base+"/offer"
+        );
+
+
+    const answerRef =
+        ref(
+            db,
+            base+"/answer"
+        );
+
+
+    const candidateRef =
+        ref(
+            db,
+            base+"/candidates"
+        );
+
+
+    const stopOffer =
+        onValue(
+            offerRef,
+            async snap=>{
+
+                const offer =
+                    snap.val();
+
+                if(!offer)
+                    return;
+
+
+                if(
+                    pc.signalingState !==
+                    "stable"
+                )
+                    return;
+
+
+                try{
+
+                    await pc.setRemoteDescription(
+                        new RTCSessionDescription(
+                            {
+                                type:"offer",
+                                sdp:offer.sdp
+                            }
+                        )
+                    );
+
+
+                    const answer =
+                        await pc.createAnswer();
+
+
+                    await pc.setLocalDescription(
+                        answer
+                    );
+
+
+                    await set(
+                        ref(
+                            db,
+                            `rooms/${currentRoomId}/signal/${user.uid}/${peerUid}/answer`
+                        ),
+                        {
+                            type:"answer",
+                            sdp:answer.sdp
+                        }
+                    );
+
+
+                    await flushCandidates(
+                        peerUid,
+                        pc
+                    );
+
+                }catch(e){
+
+                    console.error(
+                        "offer",
+                        e
+                    );
+
+                }
+
+            }
+        );
+
+
+    const stopAnswer =
+        onValue(
+            answerRef,
+            async snap=>{
+
+                const answer =
+                    snap.val();
+
+                if(!answer)
+                    return;
+
+
+                if(
+                    pc.signalingState !==
+                    "have-local-offer"
+                )
+                    return;
+
+
+                try{
+
+                    await pc.setRemoteDescription(
+                        new RTCSessionDescription(
+                            {
+                                type:"answer",
+                                sdp:answer.sdp
+                            }
+                        )
+                    );
+
+
+                    await flushCandidates(
+                        peerUid,
+                        pc
+                    );
+
+                }catch(e){
+
+                    console.error(
+                        "answer",
+                        e
+                    );
+
+                }
+
+            }
+        );
+
+
+    const stopCandidates =
+        onValue(
+            candidateRef,
+            async snap=>{
+
+                const data =
+                    snap.val() || {};
+
+
+                for(
+                    const key in data
+                ){
+
+                    const c =
+                        data[key];
+
+
+                    if(
+                        pc.remoteDescription
+                        ?.type
+                    ){
+
+                        try{
+
+                            await pc.addIceCandidate(
+                                new RTCIceCandidate(
+                                    c
+                                )
+                            );
+
+                        }catch(e){
+
+                            console.warn(
+                                "candidate",
+                                e
+                            );
+
+                        }
+
+                    }else{
+
+                        pendingCandidates[
+                            peerUid
+                        ].push(c);
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    signalListeners[
+        peerUid
+    ].push(
+        stopOffer,
+        stopAnswer,
+        stopCandidates
+    );
+
+}
+
+
+async function flushCandidates(
+    peerUid,
+    pc
+){
+
+    const list =
+        pendingCandidates[
+            peerUid
+        ] || [];
+
+
+    for(
+        const c of list
+    ){
+
+        try{
+
+            await pc.addIceCandidate(
+                new RTCIceCandidate(c)
+            );
+
+        }catch{}
+
+    }
+
+
+    pendingCandidates[
+        peerUid
+    ] = [];
+
+}
+
+
+/* =========================================================
+   DATA CHANNEL
+========================================================= */
+
+function setupDataChannel(
+    peerUid,
+    channel
+){
+
+    dataChannels[
+        peerUid
+    ] = channel;
+
+
+    channel.onopen =
+    ()=>{
+
+        console.log(
+            "DataChannel connected:",
+            peerUid
+        );
+
+
+        sendPacket(
+            peerUid,
+            {
+                type:"hello",
+                uid:user.uid,
+                name:profile.displayName
+            }
+        );
+
+    };
+
+
+    channel.onclose =
+    ()=>{
+
+        delete dataChannels[
+            peerUid
+        ];
+
+        delete remotePlayers[
+            peerUid
+        ];
+
+    };
+
+
+    channel.onerror =
+    console.error;
+
+
+    channel.onmessage =
+    event=>{
+
+        try{
+
+            const packet =
+                JSON.parse(
+                    event.data
+                );
+
+            handlePacket(
+                peerUid,
+                packet
+            );
+
+        }catch(e){
+
+            console.warn(
+                "packet",
+                e
+            );
+
+        }
+
+    };
+
+}
+
+
+function sendPacket(
+    peerUid,
+    packet
+){
+
+    const channel =
+        dataChannels[
+            peerUid
+        ];
+
+
+    if(
+        !channel ||
+        channel.readyState !==
+        "open"
+    )
+        return;
+
+
+    try{
+
+        channel.send(
+            JSON.stringify(
+                packet
+            )
+        );
+
+    }catch{}
+
+}
+
+
+function broadcast(
+    packet
+){
+
+    for(
+        const uid in dataChannels
+    ){
+
+        sendPacket(
+            uid,
+            packet
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PACKET HANDLER
+========================================================= */
+
+function handlePacket(
+    peerUid,
+    packet
+){
+
+    if(
+        packet.type ===
+        "state"
+    ){
+
+        remotePlayers[
+            peerUid
+        ] = {
+
+            ...remotePlayers[
+                peerUid
+            ],
+
+            ...packet.player,
+
+            lastSeen:
+                performance.now()
+
+        };
+
+        return;
+
+    }
+
+
+    if(
+        packet.type ===
+        "attack"
+    ){
+
+        receiveAttack(
+            peerUid,
+            packet
+        );
+
+        return;
+
+    }
+
+
+    if(
+        packet.type ===
+        "special"
+    ){
+
+        receiveSpecial(
+            peerUid,
+            packet
+        );
+
+        return;
+
+    }
+
+
+    if(
+        packet.type ===
+        "hit"
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        packet.type ===
+        "dead"
+    ){
+
+        if(
+            packet.uid ===
+            user.uid
+        ){
+
+            finishGame(
+                false,
+                "YOU DIED"
+            );
+
+        }
+
+        return;
+
+    }
+
+
+    if(
+        packet.type ===
+        "winner"
+    ){
+
+        finishGame(
+            packet.winner === user.uid,
+            packet.winner === user.uid
+            ? "마지막까지 살아남았어!"
+            : "다른 플레이어가 승리했어."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GAME
+========================================================= */
 
 const canvas =
-    $("gameCanvas");
+    $("canvas");
 
 const ctx =
     canvas.getContext("2d");
 
-let gameRunning = false;
-
-let player = {
-
-    x:200,
-
-    y:300,
-
-    vx:0,
-
-    vy:0,
-
-    hp:100,
-
-    weapon:"sword",
-
-    facing:1
-
-};
-
-let enemies = [];
-
-let projectiles = [];
-
-let keys = {};
-
-let lastAttack = 0;
-
-
-/* ==========================================================
-   RESIZE
-========================================================== */
 
 function resizeCanvas(){
 
     canvas.width =
-        window.innerWidth;
+        window.innerWidth *
+        devicePixelRatio;
 
     canvas.height =
-        window.innerHeight;
+        window.innerHeight *
+        devicePixelRatio;
+
+    canvas.style.width =
+        window.innerWidth+"px";
+
+    canvas.style.height =
+        window.innerHeight+"px";
+
+    ctx.setTransform(
+        devicePixelRatio,
+        0,
+        0,
+        devicePixelRatio,
+        0,
+        0
+    );
 
 }
+
 
 window.addEventListener(
     "resize",
@@ -2187,32 +4370,36 @@ window.addEventListener(
 );
 
 
-/* ==========================================================
-   START GAME
-========================================================== */
+/* =========================================================
+   INIT GAME
+========================================================= */
 
-function startGame(){
-
-    if(gameRunning)
-        return;
-
-    gameRunning = true;
-
-    $("gameScreen")
-        .classList
-        .remove("hidden");
-
-    $("gameOver")
-        .classList
-        .add("hidden");
+function initGame(){
 
     resizeCanvas();
 
-    player = {
 
-        x:150,
+    const index =
+        Object.keys(
+            currentRoom.players || {}
+        ).indexOf(
+            user.uid
+        );
 
-        y:canvas.height-150,
+
+    localPlayer = {
+
+        uid:user.uid,
+
+        name:
+            profile.displayName,
+
+        x:
+            130+
+            index*120,
+
+        y:
+            window.innerHeight-125,
 
         vx:0,
 
@@ -2220,86 +4407,72 @@ function startGame(){
 
         hp:100,
 
-        weapon:selectedWeapon,
+        weapon:
+            currentRoom.players[
+                user.uid
+            ].weapon,
 
-        facing:1
+        facing:
+            index === 0
+            ? 1
+            : -1,
+
+        grounded:true,
+
+        alive:true
 
     };
 
-    enemies = [];
 
-    projectiles = [];
+    bullets = [];
 
-    spawnPlayers();
+    effects = [];
 
-    requestAnimationFrame(
-        gameLoop
-    );
-
-}
+    gameOver = false;
 
 
-/* ==========================================================
-   SPAWN
-========================================================== */
+    $("gameResult")
+        .classList
+        .add("hidden");
 
-function spawnPlayers(){
 
-    if(!currentRoom)
-        return;
-
-    const players =
-        Object.values(
-            currentRoom.players || {}
-        );
-
-    players.forEach(
-        (p,index)=>{
-
-            if(
-                p.displayName ===
-                (
-                    currentUser.displayName ||
-                    currentUser.email
-                )
-            )
-                return;
-
-            enemies.push({
-
-                x:500 + index*100,
-
-                y:canvas.height-150,
-
-                hp:100,
-
-                vx:0,
-
-                vy:0,
-
-                color:"#ff6688",
-
-                name:p.displayName
-
-            });
-
-        }
-    );
+    updateHPUI();
 
 }
 
 
-/* ==========================================================
-   INPUT
-========================================================== */
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
 window.addEventListener(
     "keydown",
     e=>{
 
-        keys[e.key] = true;
+        if(
+            e.key === "ArrowLeft" ||
+            e.key.toLowerCase() === "a"
+        )
+            keys.left = true;
 
-        if(e.key === " "){
+
+        if(
+            e.key === "ArrowRight" ||
+            e.key.toLowerCase() === "d"
+        )
+            keys.right = true;
+
+
+        if(
+            e.key === "ArrowUp" ||
+            e.key.toLowerCase() === "w"
+        )
+            keys.jump = true;
+
+
+        if(
+            e.code === "Space"
+        ){
 
             e.preventDefault();
 
@@ -2307,122 +4480,259 @@ window.addEventListener(
 
         }
 
+
+        if(
+            e.key.toLowerCase() === "q"
+        ){
+
+            specialAttack();
+
+        }
+
     }
 );
+
 
 window.addEventListener(
     "keyup",
     e=>{
 
-        keys[e.key] = false;
+        if(
+            e.key === "ArrowLeft" ||
+            e.key.toLowerCase() === "a"
+        )
+            keys.left = false;
+
+
+        if(
+            e.key === "ArrowRight" ||
+            e.key.toLowerCase() === "d"
+        )
+            keys.right = false;
+
+
+        if(
+            e.key === "ArrowUp" ||
+            e.key.toLowerCase() === "w"
+        )
+            keys.jump = false;
 
     }
 );
 
 
+/* =========================================================
+   TOUCH
+========================================================= */
+
 document
-.querySelectorAll(".controlBtn")
-.forEach(button=>{
+.querySelectorAll(
+    ".control"
+)
+.forEach(btn=>{
 
     const key =
-        button.dataset.key;
+        btn.dataset.key;
 
-    if(!key) return;
+    if(!key)
+        return;
 
-    button.addEventListener(
-        "pointerdown",
-        ()=>{
+
+    const down =
+        e=>{
+
+            e.preventDefault();
+
             keys[key] = true;
-        }
+
+        };
+
+
+    const up =
+        e=>{
+
+            e.preventDefault();
+
+            keys[key] = false;
+
+        };
+
+
+    btn.addEventListener(
+        "pointerdown",
+        down
     );
 
-    button.addEventListener(
+    btn.addEventListener(
         "pointerup",
-        ()=>{
-            keys[key] = false;
-        }
+        up
     );
 
-    button.addEventListener(
+    btn.addEventListener(
         "pointercancel",
-        ()=>{
-            keys[key] = false;
-        }
+        up
     );
 
 });
 
 
-$("attackBtn").onclick =
-attack;
+$("attackControl")
+.addEventListener(
+    "pointerdown",
+    e=>{
+
+        e.preventDefault();
+
+        attack();
+
+    }
+);
 
 
-$("specialBtn").onclick =
-specialAttack;
+$("specialControl")
+.addEventListener(
+    "pointerdown",
+    e=>{
+
+        e.preventDefault();
+
+        specialAttack();
+
+    }
+);
 
 
-/* ==========================================================
+/* =========================================================
    ATTACK
-========================================================== */
+========================================================= */
+
+let lastAttack =
+    0;
+
 
 function attack(){
 
-    if(!gameRunning)
+    if(
+        !localGameStarted ||
+        gameOver ||
+        !localPlayer?.alive
+    )
         return;
+
 
     const now =
         performance.now();
 
+
     const weapon =
-        WEAPONS[player.weapon];
+        WEAPONS[
+            localPlayer.weapon
+        ];
+
 
     if(
         now-lastAttack <
-        weapon.speed
+        weapon.cooldown
     )
         return;
 
-    lastAttack = now;
+
+    lastAttack =
+        now;
+
 
     if(
-        weapon.type === "melee"
+        weapon.type ===
+        "melee"
     ){
 
-        enemies.forEach(enemy=>{
+        broadcast({
 
-            const dx =
-                enemy.x-player.x;
+            type:"attack",
 
-            const dy =
-                enemy.y-player.y;
+            attacker:user.uid,
 
-            const distance =
-                Math.hypot(dx,dy);
+            weapon:
+                localPlayer.weapon,
 
-            if(
-                distance <= weapon.range
-            ){
+            x:
+                localPlayer.x,
 
-                enemy.hp -=
-                    weapon.damage;
+            y:
+                localPlayer.y,
 
-            }
+            facing:
+                localPlayer.facing,
+
+            time:Date.now()
 
         });
 
+
+        makeEffect(
+            localPlayer.x+
+            localPlayer.facing*45,
+            localPlayer.y-35,
+            weapon.icon
+        );
+
     }else{
 
-        projectiles.push({
+        const bullet = {
 
-            x:player.x,
+            id:
+                crypto.randomUUID(),
 
-            y:player.y-30,
+            owner:user.uid,
 
-            vx:player.facing*9,
+            x:
+                localPlayer.x+
+                localPlayer.facing*30,
+
+            y:
+                localPlayer.y-40,
+
+            vx:
+                localPlayer.facing*
+                weapon.projectileSpeed,
 
             vy:0,
 
-            damage:weapon.damage
+            damage:
+                weapon.damage,
+
+            weapon:
+                localPlayer.weapon
+
+        };
+
+
+        bullets.push(
+            bullet
+        );
+
+
+        broadcast({
+
+            type:"attack",
+
+            attacker:user.uid,
+
+            weapon:
+                localPlayer.weapon,
+
+            x:
+                bullet.x,
+
+            y:
+                bullet.y,
+
+            facing:
+                localPlayer.facing,
+
+            projectile:true,
+
+            time:Date.now()
 
         });
 
@@ -2431,118 +4741,783 @@ function attack(){
 }
 
 
-/* ==========================================================
+/* =========================================================
+   RECEIVE ATTACK
+========================================================= */
+
+function receiveAttack(
+    attackerUid,
+    packet
+){
+
+    if(
+        !localPlayer?.alive ||
+        attackerUid === user.uid
+    )
+        return;
+
+
+    const weapon =
+        WEAPONS[
+            packet.weapon
+        ];
+
+
+    if(!weapon)
+        return;
+
+
+    if(
+        packet.projectile
+    ){
+
+        bullets.push({
+
+            id:
+                crypto.randomUUID(),
+
+            owner:
+                attackerUid,
+
+            x:
+                packet.x,
+
+            y:
+                packet.y,
+
+            vx:
+                packet.facing*
+                weapon.projectileSpeed,
+
+            vy:0,
+
+            damage:
+                weapon.damage,
+
+            weapon:
+                packet.weapon
+
+        });
+
+        return;
+
+    }
+
+
+    const dx =
+        localPlayer.x -
+        packet.x;
+
+
+    const dy =
+        localPlayer.y -
+        packet.y;
+
+
+    const distance =
+        Math.hypot(
+            dx,
+            dy
+        );
+
+
+    if(
+        distance <=
+        weapon.range
+    ){
+
+        /*
+          앞쪽 공격만 허용
+        */
+
+        const direction =
+            Math.sign(
+                dx
+            );
+
+
+        if(
+            direction ===
+            packet.facing ||
+            Math.abs(dx) < 30
+        ){
+
+            damageLocalPlayer(
+                weapon.damage
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
    SPECIAL
-========================================================== */
+========================================================= */
+
+let lastSpecial = 0;
+
 
 function specialAttack(){
 
-    if(!gameRunning)
+    if(
+        !localPlayer?.alive ||
+        gameOver
+    )
         return;
 
-    enemies.forEach(enemy=>{
 
-        const dx =
-            enemy.x-player.x;
+    const now =
+        performance.now();
 
-        const dy =
-            enemy.y-player.y;
+
+    if(
+        now-lastSpecial < 1500
+    )
+        return;
+
+
+    lastSpecial =
+        now;
+
+
+    broadcast({
+
+        type:"special",
+
+        attacker:user.uid,
+
+        x:localPlayer.x,
+
+        y:localPlayer.y,
+
+        time:Date.now()
+
+    });
+
+
+    makeEffect(
+        localPlayer.x,
+        localPlayer.y-40,
+        "💥"
+    );
+
+}
+
+
+function receiveSpecial(
+    attackerUid,
+    packet
+){
+
+    if(
+        !localPlayer?.alive ||
+        attackerUid === user.uid
+    )
+        return;
+
+
+    const distance =
+        Math.hypot(
+            localPlayer.x-
+            packet.x,
+
+            localPlayer.y-
+            packet.y
+        );
+
+
+    if(
+        distance < 170
+    ){
+
+        damageLocalPlayer(
+            20
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DAMAGE
+========================================================= */
+
+function damageLocalPlayer(
+    amount
+){
+
+    if(
+        !localPlayer.alive
+    )
+        return;
+
+
+    localPlayer.hp -=
+        amount;
+
+
+    localPlayer.hp =
+        Math.max(
+            0,
+            localPlayer.hp
+        );
+
+
+    updateHPUI();
+
+
+    if(
+        localPlayer.hp <= 0
+    ){
+
+        localPlayer.alive =
+            false;
+
+
+        broadcast({
+
+            type:"dead",
+
+            uid:user.uid
+
+        });
+
+
+        finishGame(
+            false,
+            "YOU DIED"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GAME UPDATE
+========================================================= */
+
+function updateGame(){
+
+    if(
+        !localPlayer ||
+        gameOver
+    )
+        return;
+
+
+    const speed =
+        4.4;
+
+
+    if(keys.left){
+
+        localPlayer.vx =
+            -speed;
+
+        localPlayer.facing =
+            -1;
+
+    }else if(keys.right){
+
+        localPlayer.vx =
+            speed;
+
+        localPlayer.facing =
+            1;
+
+    }else{
+
+        localPlayer.vx *=
+            .75;
+
+    }
+
+
+    if(
+        keys.jump &&
+        localPlayer.grounded
+    ){
+
+        localPlayer.vy =
+            -11;
+
+        localPlayer.grounded =
+            false;
+
+    }
+
+
+    localPlayer.vy +=
+        .55;
+
+
+    localPlayer.x +=
+        localPlayer.vx;
+
+
+    localPlayer.y +=
+        localPlayer.vy;
+
+
+    const floor =
+        window.innerHeight-95;
+
+
+    if(
+        localPlayer.y >=
+        floor
+    ){
+
+        localPlayer.y =
+            floor;
+
+        localPlayer.vy =
+            0;
+
+        localPlayer.grounded =
+            true;
+
+    }
+
+
+    localPlayer.x =
+        Math.max(
+            30,
+            Math.min(
+                window.innerWidth-30,
+                localPlayer.x
+            )
+        );
+
+
+    updateBullets();
+
+
+    /*
+       상태를 Firebase가 아니라
+       WebRTC DataChannel로 보냄.
+    */
+
+    const now =
+        performance.now();
+
+
+    if(
+        now-lastNetworkSend >
+        50
+    ){
+
+        lastNetworkSend =
+            now;
+
+
+        broadcast({
+
+            type:"state",
+
+            player:{
+
+                uid:user.uid,
+
+                name:
+                    profile.displayName,
+
+                x:
+                    localPlayer.x,
+
+                y:
+                    localPlayer.y,
+
+                vx:
+                    localPlayer.vx,
+
+                vy:
+                    localPlayer.vy,
+
+                hp:
+                    localPlayer.hp,
+
+                weapon:
+                    localPlayer.weapon,
+
+                facing:
+                    localPlayer.facing,
+
+                alive:
+                    localPlayer.alive
+
+            }
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   BULLETS
+========================================================= */
+
+function updateBullets(){
+
+    for(
+        const bullet of bullets
+    ){
+
+        bullet.x +=
+            bullet.vx;
+
+        bullet.y +=
+            bullet.vy;
+
 
         if(
-            Math.hypot(dx,dy) < 160
+            bullet.owner !==
+            user.uid
         ){
 
-            enemy.hp -= 20;
+            const distance =
+                Math.hypot(
+                    bullet.x-
+                    localPlayer.x,
+
+                    bullet.y-
+                    (localPlayer.y-40)
+                );
+
+
+            if(
+                distance < 25 &&
+                localPlayer.alive
+            ){
+
+                damageLocalPlayer(
+                    bullet.damage
+                );
+
+                bullet.dead =
+                    true;
+
+            }
 
         }
+
+    }
+
+
+    bullets =
+        bullets.filter(
+            b=>
+                !b.dead &&
+                b.x>-100 &&
+                b.x<
+                    window.innerWidth+100
+        );
+
+}
+
+
+/* =========================================================
+   EFFECT
+========================================================= */
+
+function makeEffect(
+    x,
+    y,
+    text
+){
+
+    effects.push({
+
+        x,
+
+        y,
+
+        text,
+
+        life:30
 
     });
 
 }
 
 
-/* ==========================================================
-   UPDATE
-========================================================== */
+/* =========================================================
+   DRAW
+========================================================= */
 
-function update(){
+function drawGame(){
 
-    if(keys["ArrowLeft"]){
+    const map =
+        MAPS[
+            currentRoom?.map
+        ] ||
+        MAPS.plain;
 
-        player.vx = -4;
 
-        player.facing = -1;
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
 
-    }else if(keys["ArrowRight"]){
 
-        player.vx = 4;
+    /* SKY */
 
-        player.facing = 1;
+    ctx.fillStyle =
+        map.sky;
 
-    }else{
+    ctx.fillRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
 
-        player.vx *= .75;
 
-    }
+    drawMap(
+        map
+    );
 
-    if(
-        keys["ArrowUp"] &&
-        player.y >= canvas.height-151
+
+    /* OTHER PLAYERS */
+
+    for(
+        const uid in remotePlayers
     ){
 
-        player.vy = -10;
+        const p =
+            remotePlayers[uid];
 
-    }
 
-    player.vy += .5;
+        if(
+            p.lastSeen &&
+            performance.now()-
+            p.lastSeen > 3000
+        )
+            continue;
 
-    player.x += player.vx;
 
-    player.y += player.vy;
+        if(
+            p.alive === false
+        )
+            continue;
 
-    const floor =
-        canvas.height-100;
 
-    if(player.y > floor){
-
-        player.y = floor;
-
-        player.vy = 0;
-
-    }
-
-    player.x =
-        Math.max(
-            30,
-            Math.min(
-                canvas.width-30,
-                player.x
-            )
+        drawStickman(
+            p.x,
+            p.y,
+            "#ff587b",
+            p.facing || -1,
+            p.name
         );
 
 
-    for(const projectile of projectiles){
+        const weapon =
+            WEAPONS[
+                p.weapon
+            ];
 
-        projectile.x +=
-            projectile.vx;
 
-        projectile.y +=
-            projectile.vy;
+        if(weapon){
 
-        for(const enemy of enemies){
+            ctx.font =
+                "20px Arial";
 
-            const distance =
-                Math.hypot(
-                    projectile.x-enemy.x,
-                    projectile.y-(enemy.y-30)
+            ctx.fillText(
+                weapon.icon,
+                p.x+
+                25*(p.facing||-1),
+                p.y-20
+            );
+
+        }
+
+    }
+
+
+    /* LOCAL */
+
+    if(
+        localPlayer?.alive
+    ){
+
+        drawStickman(
+            localPlayer.x,
+            localPlayer.y,
+            "#776cff",
+            localPlayer.facing,
+            profile.displayName
+        );
+
+
+        const weapon =
+            WEAPONS[
+                localPlayer.weapon
+            ];
+
+
+        if(weapon){
+
+            ctx.font =
+                "20px Arial";
+
+            ctx.fillText(
+                weapon.icon,
+                localPlayer.x+
+                25*localPlayer.facing,
+                localPlayer.y-20
+            );
+
+        }
+
+    }
+
+
+    /* BULLETS */
+
+    for(
+        const b of bullets
+    ){
+
+        ctx.fillStyle =
+            b.owner === user.uid
+            ? "#ffe066"
+            : "#ff7895";
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            b.x,
+            b.y,
+            5,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    /* EFFECTS */
+
+    for(
+        const e of effects
+    ){
+
+        ctx.globalAlpha =
+            e.life/30;
+
+        ctx.font =
+            "24px Arial";
+
+        ctx.textAlign =
+            "center";
+
+        ctx.fillText(
+            e.text,
+            e.x,
+            e.y
+        );
+
+        ctx.textAlign =
+            "left";
+
+        ctx.globalAlpha =
+            1;
+
+        e.y -= 1;
+
+        e.life--;
+
+    }
+
+
+    effects =
+        effects.filter(
+            e=>e.life>0
+        );
+
+}
+
+
+function drawMap(
+    map
+){
+
+    const floor =
+        window.innerHeight-95;
+
+
+    /* GROUND */
+
+    ctx.fillStyle =
+        map.ground;
+
+    ctx.fillRect(
+        0,
+        floor,
+        window.innerWidth,
+        95
+    );
+
+
+    if(
+        currentRoom?.map ===
+        "city"
+    ){
+
+        for(
+            let x=0;
+            x<window.innerWidth;
+            x+=120
+        ){
+
+            const h =
+                80+
+                (x*13)%180;
+
+            ctx.fillStyle =
+                "#343845";
+
+            ctx.fillRect(
+                x,
+                floor-h,
+                90,
+                h
+            );
+
+            ctx.fillStyle =
+                "#f3d66c";
+
+            for(
+                let y=floor-h+20;
+                y<floor-10;
+                y+=30
+            ){
+
+                ctx.fillRect(
+                    x+15,
+                    y,
+                    12,
+                    10
                 );
 
-            if(distance < 30){
-
-                enemy.hp -=
-                    projectile.damage;
-
-                projectile.dead = true;
+                ctx.fillRect(
+                    x+55,
+                    y,
+                    12,
+                    10
+                );
 
             }
 
@@ -2550,123 +5525,61 @@ function update(){
 
     }
 
-    projectiles =
-        projectiles.filter(
-            p =>
-                !p.dead &&
-                p.x > -100 &&
-                p.x < canvas.width+100
-        );
 
+    if(
+        currentRoom?.map ===
+        "forest"
+    ){
 
-    enemies =
-        enemies.filter(
-            enemy =>
-                enemy.hp > 0
-        );
+        for(
+            let x=20;
+            x<window.innerWidth;
+            x+=95
+        ){
+
+            ctx.fillStyle =
+                "#1f3d27";
+
+            ctx.fillRect(
+                x,
+                floor-100,
+                16,
+                100
+            );
+
+            ctx.beginPath();
+
+            ctx.fillStyle =
+                "#245c31";
+
+            ctx.arc(
+                x+8,
+                floor-120,
+                45,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        }
+
+    }
 
 
     if(
-        enemies.length === 0
+        currentRoom?.map ===
+        "arena"
     ){
 
-        endGame(true);
-
-    }
-
-    $("hpText")
-        .textContent =
-        Math.max(
-            0,
-            Math.round(player.hp)
-        );
-
-}
-
-
-/* ==========================================================
-   DRAW
-========================================================== */
-
-function draw(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-    drawBackground();
-
-    drawPlayer();
-
-    enemies.forEach(
-        drawEnemy
-    );
-
-    projectiles.forEach(
-        drawProjectile
-    );
-
-}
-
-
-function drawBackground(){
-
-    const map =
-        currentRoom?.map ||
-        "plain";
-
-    if(map === "city"){
-
-        ctx.fillStyle="#161c2e";
-
-    }else if(map === "forest"){
-
-        ctx.fillStyle="#102319";
-
-    }else if(map === "arena"){
-
-        ctx.fillStyle="#251e31";
-
-    }else{
-
-        ctx.fillStyle="#151d22";
-
-    }
-
-    ctx.fillRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    ctx.fillStyle="#252d35";
-
-    ctx.fillRect(
-        0,
-        canvas.height-100,
-        canvas.width,
-        100
-    );
-
-
-    ctx.fillStyle="#313b44";
-
-    for(
-        let x=0;
-        x<canvas.width;
-        x+=80
-    ){
+        ctx.fillStyle =
+            "#8b5d49";
 
         ctx.fillRect(
-            x,
-            canvas.height-100,
-            60,
-            3
+            0,
+            floor-12,
+            window.innerWidth,
+            12
         );
 
     }
@@ -2678,22 +5591,30 @@ function drawStickman(
     x,
     y,
     color,
-    facing=1
+    facing,
+    name
 ){
 
-    ctx.strokeStyle=color;
+    ctx.strokeStyle =
+        color;
 
-    ctx.lineWidth=5;
+    ctx.fillStyle =
+        color;
 
-    ctx.lineCap="round";
+    ctx.lineWidth =
+        5;
 
-    // head
+    ctx.lineCap =
+        "round";
+
+
+    /* HEAD */
 
     ctx.beginPath();
 
     ctx.arc(
         x,
-        y-55,
+        y-57,
         15,
         0,
         Math.PI*2
@@ -2702,13 +5623,13 @@ function drawStickman(
     ctx.stroke();
 
 
-    // body
+    /* BODY */
 
     ctx.beginPath();
 
     ctx.moveTo(
         x,
-        y-40
+        y-42
     );
 
     ctx.lineTo(
@@ -2719,7 +5640,7 @@ function drawStickman(
     ctx.stroke();
 
 
-    // arms
+    /* ARMS */
 
     ctx.beginPath();
 
@@ -2729,9 +5650,11 @@ function drawStickman(
     );
 
     ctx.lineTo(
-        x+25*facing,
-        y-15
+        x+
+        25*facing,
+        y-12
     );
+
 
     ctx.moveTo(
         x,
@@ -2739,14 +5662,15 @@ function drawStickman(
     );
 
     ctx.lineTo(
-        x-20*facing,
-        y-10
+        x-
+        22*facing,
+        y-12
     );
 
     ctx.stroke();
 
 
-    // legs
+    /* LEGS */
 
     ctx.beginPath();
 
@@ -2760,6 +5684,7 @@ function drawStickman(
         y+28
     );
 
+
     ctx.moveTo(
         x,
         y
@@ -2772,211 +5697,252 @@ function drawStickman(
 
     ctx.stroke();
 
-}
 
+    /* NAME */
 
-function drawPlayer(){
+    ctx.font =
+        "12px Arial";
 
-    drawStickman(
-        player.x,
-        player.y,
-        "#8c7dff",
-        player.facing
-    );
+    ctx.textAlign =
+        "center";
 
-    const weapon =
-        WEAPONS[player.weapon];
-
-    ctx.font="20px Arial";
+    ctx.fillStyle =
+        "#fff";
 
     ctx.fillText(
-        weapon.icon,
-        player.x+25*player.facing,
-        player.y-20
+        name || "",
+        x,
+        y-82
     );
+
+    ctx.textAlign =
+        "left";
 
 }
 
 
-function drawEnemy(enemy){
+/* =========================================================
+   UI HP
+========================================================= */
 
-    drawStickman(
-        enemy.x,
-        enemy.y,
-        "#ff6688",
-        -1
-    );
+function updateHPUI(){
 
-    ctx.fillStyle="#fff";
+    const hp =
+        Math.max(
+            0,
+            Math.round(
+                localPlayer?.hp || 0
+            )
+        );
 
-    ctx.font="12px Arial";
 
-    ctx.textAlign="center";
+    $("hpText")
+        .textContent =
+        hp;
 
-    ctx.fillText(
-        enemy.name,
-        enemy.x,
-        enemy.y-85
-    );
 
-    ctx.fillStyle="#222";
+    $("hpFill")
+        .style.width =
+        hp+"%";
 
-    ctx.fillRect(
-        enemy.x-25,
-        enemy.y-75,
-        50,
-        5
-    );
 
-    ctx.fillStyle="#48e28b";
+    if(hp < 30){
 
-    ctx.fillRect(
-        enemy.x-25,
-        enemy.y-75,
-        50*
-        Math.max(0,enemy.hp)/100,
-        5
-    );
+        $("hpFill")
+            .style.background =
+            "#ff5577";
 
-    ctx.textAlign="left";
+    }else{
+
+        $("hpFill")
+            .style.background =
+            "#42df8b";
+
+    }
 
 }
 
 
-function drawProjectile(p){
-
-    ctx.fillStyle="#ffe36e";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        p.x,
-        p.y,
-        6,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* ==========================================================
-   LOOP
-========================================================== */
+/* =========================================================
+   GAME LOOP
+========================================================= */
 
 function gameLoop(){
 
-    if(!gameRunning)
+    if(
+        !localGameStarted
+    )
         return;
 
-    update();
 
-    draw();
+    updateGame();
 
-    requestAnimationFrame(
-        gameLoop
-    );
+    drawGame();
+
+
+    gameLoopId =
+        requestAnimationFrame(
+            gameLoop
+        );
 
 }
 
 
-/* ==========================================================
-   GAME OVER
-========================================================== */
+/* =========================================================
+   FINISH
+========================================================= */
 
-function endGame(win){
+function finishGame(
+    won,
+    reason
+){
 
-    if(!gameRunning)
+    if(gameOver)
         return;
 
-    gameRunning = false;
 
-    $("winnerText")
+    gameOver =
+        true;
+
+
+    $("resultTitle")
         .textContent =
-        win
+        won
         ? "🏆 승리!"
         : "💀 패배";
 
-    $("gameOver")
+
+    $("resultText")
+        .textContent =
+        reason;
+
+
+    $("gameResult")
         .classList
         .remove("hidden");
 
 }
 
 
-/* ==========================================================
-   RETURN
-========================================================== */
+/* =========================================================
+   RETURN ROOM
+========================================================= */
 
-$("returnRoomBtn").onclick =
+$("returnRoom").onclick =
 ()=>{
 
-    $("gameScreen")
+    localGameStarted =
+        false;
+
+    gameOver =
+        false;
+
+
+    stopWebRTC();
+
+
+    $("game")
         .classList
         .add("hidden");
 
-    gameRunning = false;
+
+    $("gameResult")
+        .classList
+        .add("hidden");
 
 };
 
 
-/* ==========================================================
-   TABS
-========================================================== */
+/* =========================================================
+   ROOM STATUS / HOST WATCH
+========================================================= */
 
-document
-.querySelectorAll(".tab")
-.forEach(button=>{
+setInterval(
+    async()=>{
 
-    button.onclick = ()=>{
-
-        document
-        .querySelectorAll(".tab")
-        .forEach(
-            x=>x.classList.remove("active")
-        );
-
-        button.classList.add("active");
-
-        document
-        .querySelectorAll(".page")
-        .forEach(
-            x=>x.classList.add("hidden")
-        );
-
-        $("page-"+button.dataset.page)
-            .classList
-            .remove("hidden");
-
-    };
-
-});
+        if(
+            !currentRoomId ||
+            !currentRoom
+        )
+            return;
 
 
-/* ==========================================================
-   SECURITY / HTML
-========================================================== */
+        /*
+           방장이 나가면 남은 사람 중
+           첫 번째 플레이어를 새 HOST로 지정.
+        */
 
-function escapeHtml(value){
-
-    return String(value ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
+        const players =
+            currentRoom.players ||
+            {};
 
 
-/* ==========================================================
-   INITIAL
-========================================================== */
+        if(
+            currentRoom.hostUid ===
+            user.uid
+        )
+            return;
+
+
+        if(
+            !players[
+                currentRoom.hostUid
+            ]
+        ){
+
+            const ids =
+                Object.keys(
+                    players
+                );
+
+
+            if(
+                ids.length &&
+                ids[0] === user.uid
+            ){
+
+                await update(
+                    ref(
+                        db,
+                        "rooms/"+currentRoomId
+                    ),
+                    {
+                        hostUid:user.uid
+                    }
+                );
+
+            }
+
+        }
+
+    },
+    2500
+);
+
+
+/* =========================================================
+   ROOM CLEANUP
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+        stopWebRTC();
+    }
+);
+
+
+/* =========================================================
+   START LOG
+========================================================= */
 
 console.log(
-    "DuoMarst Stickman Battle initialized"
+    "%cStickWar loaded",
+    "color:#8c7dff;font-size:20px;font-weight:bold"
+);
+
+console.log(
+    SDK_VERSION
 );
 
 </script>
