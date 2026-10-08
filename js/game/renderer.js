@@ -789,22 +789,19 @@ function drawFrontArmAndWeapon(
             weaponId
         );
 
-    drawWeapon(
-        ctx,
-        handX,
-        handY,
-        weaponId,
-        weaponAngle,
-        scale,
-        {
-            time:
-                performance.now(),
-
-            player,
-
-            weaponState
-        }
-    );
+drawWeapon(
+    ctx,
+    weaponId,
+    handX,
+    handY,
+    weaponAngle,
+    scale,
+    {
+        time: performance.now(),
+        player,
+        weaponState
+    }
+);
 
     /*
      * 공격 궤적
